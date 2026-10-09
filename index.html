@@ -2,7 +2,7 @@
 <html lang="id" class="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>M. Naufal Zamani (@rebatur_data) — MotoGP™, Moto2™ & Moto3™ Mandalika Analytics Portal</title>
 
   <!-- Tailwind CSS CDN -->
@@ -18,11 +18,11 @@
               darkred: '#990000',
               lightred: '#fee2e2',
               white: '#ffffff',
-              green: '#00c853',
+              green: '#00a651',
               blue: '#0284c7',
               yellow: '#f59e0b',
               asphalt: '#0b0f19',
-              asphaltCard: '#131d31',
+              asphaltCard: '#131927',
               sidebarDark: '#0f172a',
               sidebarCard: '#1e293b',
               asphaltBorder: '#222d42'
@@ -49,7 +49,7 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      z-index: 999;
+      z-index: 40;
       box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
       transition: all 0.3s ease;
     }
@@ -66,19 +66,13 @@
       animation: bike-ride 3s infinite ease-in-out;
     }
 
-    /* BACKGROUND FLOATING RACING ICONS ANIMATION */
+    /* Ambient Background Floating Elements */
     @keyframes float-slow {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.12; }
-      50% { transform: translateY(-28px) rotate(14deg); opacity: 0.28; }
-    }
-    @keyframes float-mid {
       0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.10; }
-      50% { transform: translateY(-20px) rotate(-12deg); opacity: 0.24; }
+      50% { transform: translateY(-24px) rotate(12deg); opacity: 0.25; }
     }
     .bg-icon-1 { animation: float-slow 7s infinite ease-in-out; }
-    .bg-icon-2 { animation: float-mid 5s infinite ease-in-out; animation-delay: 1.5s; }
-    .bg-icon-3 { animation: float-slow 9s infinite ease-in-out; animation-delay: 3s; }
-    .bg-icon-4 { animation: float-mid 6s infinite ease-in-out; animation-delay: 0.8s; }
+    .bg-icon-2 { animation: float-slow 9s infinite ease-in-out; animation-delay: 2s; }
 
     ::-webkit-scrollbar {
       width: 6px;
@@ -90,19 +84,17 @@
     }
   </style>
 </head>
-<body class="relative min-h-screen bg-slate-100 text-slate-900 dark:bg-racing-asphalt dark:text-slate-100 transition-colors duration-300 flex flex-col justify-between overflow-x-hidden">
+<body class="min-h-screen bg-slate-100 text-slate-900 dark:bg-racing-asphalt dark:text-slate-100 transition-colors duration-300 flex flex-col justify-between overflow-x-hidden select-none">
 
-  <!-- ================= FLOATING AMBIENT BACKGROUND RACING ICONS ================= -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none opacity-40 dark:opacity-20" aria-hidden="true">
+  <!-- ================= AMBIENT FLOATING MOTORSPORT ICONS ================= -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none opacity-30 dark:opacity-15" aria-hidden="true">
     <i data-lucide="flag" class="bg-icon-1 text-racing-red absolute top-24 left-[10%] w-16 h-16"></i>
     <i data-lucide="trophy" class="bg-icon-2 text-amber-500 absolute top-72 right-[8%] w-20 h-20"></i>
-    <i data-lucide="gauge" class="bg-icon-3 text-blue-500 absolute bottom-96 left-[18%] w-24 h-24"></i>
-    <i data-lucide="zap" class="bg-icon-4 text-yellow-400 absolute top-[45%] left-[45%] w-14 h-14"></i>
-    <i data-lucide="compass" class="bg-icon-1 text-slate-400 absolute bottom-32 right-[15%] w-16 h-16"></i>
-    <i data-lucide="shield" class="bg-icon-2 text-racing-red absolute bottom-20 left-[5%] w-14 h-14"></i>
+    <i data-lucide="gauge" class="bg-icon-1 text-blue-500 absolute bottom-96 left-[18%] w-24 h-24"></i>
+    <i data-lucide="zap" class="bg-icon-2 text-yellow-400 absolute top-[45%] left-[45%] w-14 h-14"></i>
   </div>
 
-  <!-- ================= TOP CITATION LINKS ================= -->
+  <!-- ================= TOP VERIFIED CITATION LINKS ================= -->
   <div class="relative z-10 bg-white dark:bg-black border-b border-slate-200 dark:border-slate-800 text-xs py-2 px-4 transition-colors">
     <div class="w-full max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
       
@@ -130,12 +122,12 @@
           <i data-lucide="palmtree" class="w-3.5 h-3.5 text-emerald-600"></i> Wonderful Indonesia ↗
         </a>
         <span class="text-slate-400">•</span>
-        <a href="https://www.motogp.com/en/riders" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1 font-black text-racing-red">
-          <i data-lucide="external-link" class="w-3.5 h-3.5"></i> MotoGP™ Database ↗
+        <a href="https://www.motogp.com/en/riders/motogp" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1 font-black text-racing-red">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i> MotoGP.com Riders Database ↗
         </a>
       </div>
 
-      <!-- Controls: Language & Theme -->
+      <!-- Controls: Language & Theme Mode -->
       <div class="flex items-center gap-3 shrink-0">
         <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 text-xs font-bold border border-slate-300 dark:border-slate-700">
           <button onclick="setLanguage('id')" id="lang-id-btn" class="px-2.5 py-1 rounded bg-racing-red text-white transition">ID</button>
@@ -151,28 +143,36 @@
     </div>
   </div>
 
-  <!-- ================= MOBILE HEADER TOGGLE ================= -->
-  <div class="relative z-10 lg:hidden bg-racing-sidebarDark text-white p-4 flex items-center justify-between sticky top-0 shadow-md">
+  <!-- ================= MOBILE HEADER ================= -->
+  <div class="relative z-20 lg:hidden bg-racing-sidebarDark text-white p-4 flex items-center justify-between sticky top-0 shadow-md">
     <div class="flex items-center gap-2">
-      <span class="text-racing-red font-black text-xl italic">MOTO<span class="text-white">GP</span></span>
-      <span class="text-xs font-bold">M. Naufal Zamani Hub</span>
+      <span class="text-racing-red font-black text-xl italic tracking-tighter">MOTO<span class="text-white">GP</span></span>
+      <span class="text-xs font-bold text-slate-300">M. Naufal Zamani Hub</span>
     </div>
-    <button onclick="toggleMobileMenu()" class="p-2 rounded-xl bg-slate-800 border border-slate-700">
+    <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-racing-red transition border border-slate-700 text-white flex items-center gap-1.5 text-xs font-bold">
       <i data-lucide="menu" class="w-5 h-5"></i>
+      <span>Menu</span>
     </button>
   </div>
 
-  <div id="mobile-backdrop" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/60 z-30 lg:hidden hidden transition-opacity duration-300"></div>
+  <!-- Backdrop Mobile Drawer -->
+  <div id="mobile-backdrop" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/70 z-40 lg:hidden hidden transition-opacity duration-300 backdrop-blur-sm"></div>
 
   <!-- ================= MAIN LAYOUT WRAPPER ================= -->
-  <div class="relative z-10 flex-1 flex w-full max-w-[1600px] mx-auto overflow-hidden">
+  <div class="relative z-10 flex-1 flex w-full max-w-[1600px] mx-auto">
     
-    <!-- ================= SIDEBAR ================= -->
-    <aside id="sidebar-drawer" class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:static lg:h-auto min-h-screen w-72 xl:w-80 bg-gradient-to-b from-[#0f172a] via-[#131d31] to-[#0a0f1d] text-white border-r-2 border-slate-800 flex flex-col justify-between shrink-0 overflow-y-auto transition-transform duration-300 z-40 shadow-2xl">
+    <!-- ================= SIDEBAR SAMPING ================= -->
+    <aside id="sidebar-drawer" class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:static lg:h-auto min-h-screen w-72 xl:w-80 bg-gradient-to-b from-[#0f172a] via-[#131d31] to-[#0a0f1d] text-white border-r-2 border-slate-800 flex flex-col justify-between shrink-0 overflow-y-auto transition-transform duration-300 z-50 shadow-2xl">
       
       <div class="p-5 space-y-4">
         
-        <div class="text-center pb-4 border-b border-slate-800">
+        <!-- FOTO PROFIL BESAR, NAMA & LINK INSTAGRAM -->
+        <div class="text-center pb-4 border-b border-slate-800 relative">
+          <!-- Tombol Tutup Khusus Layar HP -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden absolute top-0 right-0 p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-lg">
+            ✕
+          </button>
+
           <div class="relative w-36 h-44 mx-auto mb-3 rounded-2xl overflow-hidden border-4 border-racing-red shadow-2xl bg-slate-900 group">
             <img 
               src="naufal.jpg" 
@@ -200,8 +200,10 @@
               <span>@rebatur_data</span>
             </a>
           </div>
+
         </div>
 
+        <!-- SUB-BAB DASHBOARD -->
         <nav class="space-y-2 text-xs font-bold" id="sidebar-nav-container">
           <button onclick="switchTab('tab-sejarah')" id="btn-tab-sejarah" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-red text-white transition flex items-center gap-3 shadow-lg shadow-red-900/40 text-left border border-red-500">
             <i data-lucide="book-open" class="w-4 h-4 text-white shrink-0"></i>
@@ -214,8 +216,8 @@
           </button>
 
           <button onclick="switchTab('tab-hotel-map')" id="btn-tab-hotel-map" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-sidebarCard text-slate-300 hover:bg-racing-red hover:text-white transition flex items-center gap-3 text-left border border-slate-700 hover:border-racing-red">
-            <i data-lucide="martini" class="w-4 h-4 text-racing-red shrink-0"></i>
-            <span data-i18n="navHotelMap">3. Hotel, Club & Gaya Hidup</span>
+            <i data-lucide="hotel" class="w-4 h-4 text-racing-red shrink-0"></i>
+            <span data-i18n="navHotelMap">3. Peta Hotel & Tiket</span>
           </button>
 
           <button onclick="switchTab('tab-grid2026')" id="btn-tab-grid2026" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-sidebarCard text-slate-300 hover:bg-racing-red hover:text-white transition flex items-center gap-3 text-left border border-slate-700 hover:border-racing-red">
@@ -229,12 +231,13 @@
           </button>
         </nav>
 
+        <!-- Quick Access Ticket Box -->
         <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-2">
           <span class="text-[10px] font-black text-racing-red uppercase flex items-center gap-1">
-            <i data-lucide="ticket" class="w-3.5 h-3.5"></i> <span data-i18n="ticketBoxHeader">Tiket Resmi MGPA</span>
+            <i data-lucide="ticket" class="w-3.5 h-3.5"></i> Tiket Resmi MGPA
           </span>
-          <p class="text-[11px] text-slate-400" data-i18n="ticketBoxDesc">Pesan tiket resmi Grandstand, Deluxe & Premiere Class.</p>
-          <a href="http://gpticket.themandalikagp.com" target="_blank" class="block w-full py-2 bg-racing-red hover:bg-racing-darkred text-white font-bold text-center text-xs rounded-xl shadow transition" data-i18n="ticketBoxBtn">
+          <p class="text-[11px] text-slate-400">Pesan tiket resmi Grandstand, Deluxe & Premiere Class.</p>
+          <a href="http://gpticket.themandalikagp.com" target="_blank" class="block w-full py-2 bg-racing-red hover:bg-racing-darkred text-white font-bold text-center text-xs rounded-xl shadow transition">
             Beli Tiket Sekarang ↗
           </a>
         </div>
@@ -248,11 +251,12 @@
 
     </aside>
 
-    <!-- ================= MAIN CONTENT CONTAINER ================= -->
-    <div class="flex-1 min-w-0 w-full p-4 sm:p-6 lg:p-8 space-y-8 overflow-y-auto">
+    <!-- ================= MAIN CONTENT WRAPPER ================= -->
+    <div class="flex-1 min-w-0 w-full p-3 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 overflow-y-auto">
 
-      <!-- ================= HERO BANNER MANDALIKA 2026 ================= -->
-      <section class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-racing-asphaltBorder min-h-[340px] flex items-end p-6 sm:p-10 bg-black w-full">
+      <!-- ================= HERO BANNER RAKSASA MOTOGP MANDALIKA ================= -->
+      <section class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-racing-asphaltBorder min-h-[300px] sm:min-h-[340px] flex items-end p-5 sm:p-10 bg-black w-full">
+        
         <img 
           src="mandalika-aerial.jpg" 
           onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=2000&q=90';" 
@@ -263,120 +267,80 @@
         <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/25 sm:bg-gradient-to-r sm:from-black/95 sm:via-black/60 sm:to-transparent"></div>
 
         <div class="relative z-10 space-y-3 max-w-4xl text-white">
-          <div class="inline-flex items-center gap-2 bg-racing-red text-white px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow">
+          
+          <div class="inline-flex items-center gap-2 bg-racing-red text-white px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-black uppercase tracking-wider shadow">
             <span class="bike-anim text-sm">🏍️</span>
             FIM MOTOGP™ WORLD CHAMPIONSHIP OFFICIAL SERIES
           </div>
 
-          <h1 class="headline-font text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-white drop-shadow-xl break-words">
+          <h1 class="headline-font text-2xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-white drop-shadow-xl break-words">
             PERTAMINA GRAND PRIX OF INDONESIA 2026
-            <span class="block text-xl sm:text-3xl text-racing-red mt-2 font-black tracking-widest drop-shadow-md">
+            <span class="block text-lg sm:text-3xl text-racing-red mt-2 font-black tracking-widest drop-shadow-md">
               MOTOGP™ MANDALIKA INTERNATIONAL CIRCUIT
             </span>
           </h1>
 
-          <p class="text-slate-200 text-xs sm:text-base font-medium leading-relaxed drop-shadow max-w-2xl" data-i18n="heroSubtitle">
+          <p class="text-slate-200 text-xs sm:text-base font-medium leading-relaxed drop-shadow max-w-2xl">
             Portal Riset Makroekonomi, Antropologi Sejarah FIM & NTB, Serta Database Pembalap Dunia Terintegrasi.
           </p>
+
         </div>
+
       </section>
 
       <!-- ========================================================================= -->
-      <!-- TAB 1: SEJARAH & EVOLUSI NUSANTARA + MANDALIKA                            -->
+      <!-- TAB 1: SEJARAH LENGKAP MOTOGP 1949-2027 & KUTIPAN ILMIAH                 -->
       <!-- ========================================================================= -->
-      <div id="tab-sejarah" class="tab-pane space-y-8 w-full">
+      <div id="tab-sejarah" class="tab-pane space-y-6 sm:space-y-8 w-full">
+        
         <article class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
+          
           <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
-            <span class="bg-red-50 dark:bg-red-950/40 text-racing-red border border-red-200 dark:border-red-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider" data-i18n="encyclopediaBadge">
+            <span class="bg-red-50 dark:bg-red-950/40 text-racing-red border border-red-200 dark:border-red-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
               Ensiklopedi Jurnalistik Motorsport & Budaya Nusantara
             </span>
-            <h2 class="headline-font text-2xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3 leading-tight break-words" data-i18n="historyMainTitle">
+            <h2 class="headline-font text-xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3 leading-tight break-words" data-i18n="historyMainTitle">
               Kronologi 75 Tahun Kejuaraan Dunia MotoGP & Sejarah Luhur Tanah Mandalika
             </h2>
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed" data-i18n="historyMainDesc">
               Didirikan pada 17 Juni 1949 oleh Fédération Internationale de Motocyclisme (FIM) di balapan Isle of Man TT, MotoGP merupakan kejuaraan motorsport tertua di muka bumi. Di sisi lain, pulau Lombok di Nusa Tenggara Barat menyimpan sejarah luhur legenda Putri Mandalika yang kini bertransformasi menjadi sirkuit balap tercantik di dunia.
             </p>
-            <div class="mt-4 p-3.5 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-500 flex items-start gap-2.5">
-              <i data-lucide="bookmark" class="w-4 h-4 text-racing-red shrink-0 mt-0.5"></i>
-              <span data-i18n="historyCitations">
-                <strong>Rujukan Ilmiah & Arsip Resmi:</strong> FIM Historical Archives (Geneva), Dorna Sports S.L. Annals (Madrid), ITDC Corporation Heritage File, BPS NTB Statistik Kepariwisataan (Katalog 518/2024), Balai Pelestarian Kebudayaan Wilayah XV NTB-NTT, dan Ikatan Motor Indonesia (IMI Sentul 1996-1997).
-              </span>
+            <div class="mt-4 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-500 flex items-center gap-2">
+              <i data-lucide="bookmark" class="w-4 h-4 text-racing-red shrink-0"></i>
+              <span><strong>Kutipan & Rujukan Resmi:</strong> FIM Historical Archives (Geneva), Dorna Sports Annals (Madrid), Arsip Nasional IMI (1996–1997), dan Balai Pelestarian Nilai Budaya (BPNB) NTB.</span>
             </div>
           </div>
 
-          <!-- KONTEN JURNALISTIK -->
+          <!-- KONTEN JURNALISTIK TAMBAHAN -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-racing-asphaltBorder">
               <span class="text-xs font-black text-racing-red uppercase flex items-center gap-1.5">
-                <i data-lucide="cpu" class="w-4 h-4"></i> <span data-i18n="sciTag">Mahakarya Rp 50 Miliar</span>
+                <i data-lucide="cpu" class="w-4 h-4"></i> Mahakarya Rp 50 Miliar
               </span>
-              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1" data-i18n="sciTitle">Sains Motor Prototype</h4>
-              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="sciDesc">
+              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1">Sains Motor Prototype</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                 Motor prototype MotoGP tidak dijual bebas. Dibangun dengan sasis serat karbon ultra-ringan, transmisi *seamless gearbox* seharga miliaran rupiah, dan rem karbon Brembo yang bekerja pada suhu ekstrem 1.000°C.
               </p>
             </div>
 
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-racing-asphaltBorder">
               <span class="text-xs font-black text-blue-600 uppercase flex items-center gap-1.5">
-                <i data-lucide="swords" class="w-4 h-4"></i> <span data-i18n="rivTag">Rivalitas Abadi</span>
+                <i data-lucide="swords" class="w-4 h-4"></i> Rivalitas Abadi
               </span>
-              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1" data-i18n="rivTitle">Benturan Para Legenda</h4>
-              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="rivDesc">
+              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1">Benturan Para Legenda</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                 Dari duel panas Mick Doohan vs Wayne Rainey, perseteruan epik Valentino Rossi vs Max Biaggi & Casey Stoner, hingga era perang taktik Marc Marquez melawan Jorge Lorenzo dan Francesco Bagnaia.
               </p>
             </div>
 
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-racing-asphaltBorder">
               <span class="text-xs font-black text-amber-500 uppercase flex items-center gap-1.5">
-                <i data-lucide="shield" class="w-4 h-4"></i> <span data-i18n="sasakTag">Kearifan Suku Sasak</span>
+                <i data-lucide="shield" class="w-4 h-4"></i> Kearifan Suku Sasak
               </span>
-              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1" data-i18n="sasakTitle">Tradisi Betabeq Mandalika</h4>
-              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="sasakDesc">
+              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1">Tradisi Betabeq Mandalika</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                 Sebelum deru mesin prototype dimulai, para tokoh adat Sasak menggelar ritual *Betabeq* memohon keselamatan dan kelancaran kepada sang pencipta di tanah Mandalika yang sarat kesakralan.
               </p>
-            </div>
-          </div>
-
-          <!-- TAMBAHAN BARU: EVOLUSI BALAP NUSANTARA & TOPOGRAFI -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <div class="space-y-4">
-              <h3 class="text-base font-black text-racing-red uppercase flex items-center gap-2 border-l-4 border-racing-red pl-3">
-                <i data-lucide="flag-triangle-right" class="w-5 h-5"></i> <span data-i18n="evoNusantaraTitle">Evolusi Balap Nusantara</span>
-              </h3>
-              <div class="space-y-3 text-xs">
-                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="ancolTitle">1970an: Era Sirkuit Bina Ria Ancol</span>
-                  <p class="text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="ancolDesc">Cikal bakal balap aspal resmi pertama di Indonesia dipelopori oleh Tinton Soeprapto di kawasan pantai Ancol, Jakarta. Ajang adu nyali motor 2-tak klasik yang menyedot puluhan ribu penonton lokal.</p>
-                </div>
-                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="sentulTitle">1996 - 1997: Kejayaan Sirkuit Sentul</span>
-                  <p class="text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="sentulDesc">Indonesia resmi masuk kalender FIM. Mick Doohan mendominasi kelas 500cc (1996), disusul kemenangan ikonik pembalap muda Valentino Rossi di kelas 125cc (1997) sebelum krisis moneter menghentikan semuanya.</p>
-                </div>
-                <div class="p-4 bg-red-50 dark:bg-red-950/30 rounded-2xl border border-red-200 dark:border-red-900">
-                  <span class="font-black text-racing-red text-sm" data-i18n="mandalikaEraTitle">2022 - Modern: KEK Mandalika Bangkit</span>
-                  <p class="text-slate-700 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="mandalikaEraDesc">Penantian 25 tahun berakhir. Indonesia kembali menggelar MotoGP di sirkuit jalan raya khusus sepanjang 4.31 km di Lombok, memadukan sport tourism kelas dunia dengan keindahan pantai selatan.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-4">
-              <h3 class="text-base font-black text-racing-red uppercase flex items-center gap-2 border-l-4 border-racing-red pl-3" data-i18n="topoTitle">
-                <i data-lucide="mountain-snow" class="w-5 h-5"></i> Topografi & Budaya Sasak
-              </h3>
-              <div class="space-y-3 text-xs">
-                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="windTitle">Sains Topografi: Angin Samudra Hindia</span>
-                  <p class="text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="windDesc">Terletak di bibir pantai pesisir selatan, Mandalika memiliki angin samping (*crosswind*) yang sangat kuat. Pembalap harus berjuang menahan motor berkecepatan 318 km/jam agar tidak terhempas angin laut.</p>
-                </div>
-                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="tenunMandalikaTitle">Motif Tenun Sasak (Sublimasi Aspal)</span>
-                  <p class="text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="tenunMandalikaDesc">Lebih dari sekadar aspal, area run-off tikungan 15 hingga 17 dilukis raksasa dengan corak kain tenun tradisional Suku Sasak (Subahnale). Seni sakral seluas 50.000 meter persegi yang disorot ke seluruh dunia.</p>
-                </div>
-                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800">
-                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="nyaleTitle">Legenda Bau Nyale (Putri Mandalika)</span>
-                  <p class="text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" data-i18n="nyaleDesc">Nama sirkuit diambil dari Putri berparas cantik yang menceburkan diri ke laut demi mencegah perang saudara. Jiwanya dipercaya berubah menjadi cacing laut berkilau (Nyale) yang muncul setahun sekali.</p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -416,7 +380,7 @@
               </div>
             </div>
 
-            <!-- SEJARAH MANDALIKA NTB -->
+            <!-- SEJARAH NTB & MANDALIKA -->
             <div class="space-y-4">
               <h3 class="text-base font-black text-racing-red uppercase flex items-center gap-2">
                 <i data-lucide="sparkles" class="w-5 h-5"></i>
@@ -453,12 +417,13 @@
                 </div>
               </div>
             </div>
+
           </div>
         </article>
 
         <!-- DUA GRAFIK SEJARAH -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
             <div>
               <div class="pb-3 border-b border-slate-200 dark:border-slate-800 mb-3 flex items-center justify-between">
                 <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white flex items-center gap-2">
@@ -473,13 +438,13 @@
             </div>
             <div class="mt-4 p-3.5 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               <strong class="text-racing-red flex items-center gap-1 mb-1">
-                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i> <span data-i18n="analystLabel">Hasil Analisis & Kesimpulan Data Analyst:</span>
+                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i> Hasil Analisis & Kesimpulan Data Analyst:
               </strong>
-              <span data-i18n="chartSpeedAnalysis">Lompatan kecepatan sebesar 136% dari 155 km/jam (1949) ke 366.1 km/jam (2024) membuktikan efisiensi termal mesin prototype modern. Regulasi mesin 850cc pada 2027 ditargetkan menstabilkan kecepatan puncak di ambang 340 km/jam demi faktor keselamatan pembalap.</span>
+              Lompatan kecepatan sebesar 136% dari 155 km/jam (1949) ke 366.1 km/jam (2024) membuktikan efisiensi termal mesin prototype modern. Regulasi mesin 850cc pada 2027 ditargetkan menstabilkan kecepatan puncak di ambang 340 km/jam demi faktor keselamatan pembalap.
             </div>
           </div>
 
-          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
             <div>
               <div class="pb-3 border-b border-slate-200 dark:border-slate-800 mb-3 flex items-center justify-between">
                 <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white flex items-center gap-2">
@@ -494,61 +459,65 @@
             </div>
             <div class="mt-4 p-3.5 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               <strong class="text-racing-red flex items-center gap-1 mb-1">
-                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i> <span data-i18n="analystLabel">Hasil Analisis & Kesimpulan Data Analyst:</span>
+                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i> Hasil Analisis & Kesimpulan Data Analyst:
               </strong>
-              <span data-i18n="chartLegendsAnalysis">Kuartet Agostini (15), Nieto (13), Rossi (9), dan Marquez (8) membentuk 35.8% dari total gelar juara dunia di era Grand Prix, membuktikan bahwa siklus dominasi juara dunia bertahan rata-rata 6–8 musim balap kompetitif.</span>
+              Kuartet Agostini (15), Nieto (13), Rossi (9), dan Marquez (8) membentuk 35.8% dari total gelar juara dunia di era Grand Prix, membuktikan bahwa siklus dominasi juara dunia bertahan rata-rata 6–8 musim.
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- ========================================================================= -->
-      <!-- TAB 2: RISET EKONOMI BPS NTB (DASHBOARD RISET TERFOKUS)                  -->
+      <!-- TAB 2: RISET EKONOMI MAKRO BPS NTB + KESIMPULAN ANALIS DATA               -->
       <!-- ========================================================================= -->
-      <div id="tab-ekonomi" class="tab-pane hidden space-y-8 w-full">
+      <div id="tab-ekonomi" class="tab-pane hidden space-y-6 sm:space-y-8 w-full">
+        
         <article class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
+          
           <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
-            <span class="bg-red-50 dark:bg-red-950/40 text-racing-red border border-red-200 dark:border-red-900 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider" data-i18n="econAuditBadge">
+            <span class="bg-red-50 dark:bg-red-950/40 text-racing-red border border-red-200 dark:border-red-900 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
               Verified Economic Research (BPS NTB Audit)
             </span>
-            <h2 class="headline-font text-2xl sm:text-4xl font-black text-slate-900 dark:text-white mt-2 leading-tight break-words" data-i18n="econMainTitle">
+            <h2 class="headline-font text-xl sm:text-4xl font-black text-slate-900 dark:text-white mt-2 leading-tight break-words" data-i18n="econMainTitle">
               Kajian Analisis Data: Dampak Sirkuit Mandalika Terhadap Ekonomi & Pariwisata NTB
             </h2>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="econDataSource">
-              Data Resmi: Badan Pusat Statistik (BPS) NTB Katalog 518/2024 & InJourney Tourism Development Corporation (ITDC).
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Data Resmi: <a href="https://ntb.bps.go.id/id/statistics-table?subject=518" target="_blank" class="text-racing-red underline font-bold">Badan Pusat Statistik (BPS) NTB</a> & InJourney Tourism Development Corporation (ITDC).
             </p>
           </div>
 
           <!-- 4 KPI CARDS MAKROEKONOMI -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
               <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiEconTurnover">Perputaran Ekonomi</p>
-              <p class="text-2xl font-black text-racing-red mt-1">Rp 4,5 T</p>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="kpiEconSub">Multiplier Effect per Seri GP</p>
+              <p class="text-xl sm:text-2xl font-black text-racing-red mt-1">Rp 4,5 T</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">Multiplier Effect per Seri GP</p>
             </div>
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
               <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiHotelOcc">Okupansi Hotel Lombok</p>
-              <p class="text-2xl font-black text-slate-900 dark:text-white mt-1">98.2%</p>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="kpiHotelSub">Pekan Balap (Race Week)</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">98.2%</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">Pekan Balap (Race Week)</p>
             </div>
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
               <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiJobsAbsorbed">Tenaga Kerja Terserap</p>
-              <p class="text-2xl font-black text-slate-900 dark:text-white mt-1">10.250+</p>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="kpiJobsSub">90% Pemuda Asli NTB</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">10.250+</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">90% Pemuda Asli NTB</p>
             </div>
             <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
               <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiMsmeGrowth">Omzet UMKM Lokal</p>
-              <p class="text-2xl font-black text-slate-900 dark:text-white mt-1">+340%</p>
-              <p class="text-[10px] text-slate-400 mt-0.5" data-i18n="kpiMsmeSub">Lonjakan 3 Hari Balapan</p>
+              <p class="text-xl sm:text-2xl font-black text-racing-red mt-1">+340%</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">Lonjakan 3 Hari Balapan</p>
             </div>
           </div>
 
           <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
-            <h3 class="text-sm font-black text-racing-red uppercase" data-i18n="econConclusionTitle">Kesimpulan Riset Data: Pariwisata NTB Tumbuh Sangat Pesat!</h3>
-            <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="econConclusionDesc">
+            <h3 class="text-sm font-black text-racing-red uppercase">Kesimpulan Riset Data: Pariwisata NTB Tumbuh Sangat Pesat!</h3>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
               Melalui metode analisis dampak berganda (*economic multiplier effect*), keberadaan sirkuit internasional ini berhasil mengubah peta pertumbuhan ekonomi kawasan timur Indonesia. Kunjungan wisatawan nusantara dan mancanegara naik 18% YoY, menjadikan KEK Mandalika lokomotif devisa pariwisata nasional.
             </p>
           </div>
+
         </article>
 
         <!-- 6 GRAFIK ANALISIS MAKROEKONOMI -->
@@ -563,7 +532,7 @@
                 <canvas id="chartEkonomiNTB"></canvas>
               </div>
             </div>
-            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300" data-i18n="chartEconNote">
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
               <strong>Kesimpulan:</strong> Nilai perputaran naik dari Rp 3.8T (2022) menjadi proyeksi Rp 4.8T (2026), menghasilkan rata-rata pengembalian investasi (ROI) daerah sebesar 18.4%.
             </div>
           </div>
@@ -578,7 +547,7 @@
                 <canvas id="chartOkupansiHotel"></canvas>
               </div>
             </div>
-            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300" data-i18n="chartHotelNote">
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
               <strong>Kesimpulan:</strong> Keterisian kamar di KEK Mandalika mencapai saturasi 98.2% pada akhir pekan GP, menyebarkan efek limpahan hunian (*overflow occupancy*) ke Kota Mataram hingga 92%.
             </div>
           </div>
@@ -593,7 +562,7 @@
                 <canvas id="chartTrafikBandara"></canvas>
               </div>
             </div>
-            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300" data-i18n="chartAirportNote">
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
               <strong>Kesimpulan:</strong> Lonjakan harian tertinggi terjadi pada hari H balapan (14.200 pax/hari), menuntut operasional bandara non-stop 24 jam dengan penambahan 46 penerbangan ekstra.
             </div>
           </div>
@@ -601,14 +570,14 @@
           <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
             <div>
               <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
-                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white" data-i18n="chartSectorTitle">Pertumbuhan Sektor</h4>
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white">Pertumbuhan Sektor</h4>
                 <span class="text-[10px] text-racing-red font-bold">% YoY</span>
               </div>
               <div class="h-48 w-full">
                 <canvas id="chartPDRBSektor"></canvas>
               </div>
             </div>
-            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300" data-i18n="chartSectorNote">
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
               <strong>Kesimpulan:</strong> Sektor Hotel (+18.2%) dan Transportasi (+14.8%) menjadi kontributor terbesar akselerasi ekonomi kuartal IV di NTB secara konsisten.
             </div>
           </div>
@@ -616,14 +585,14 @@
           <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
             <div>
               <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
-                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white" data-i18n="chartSpendTitle">Distribusi Pengeluaran Turis</h4>
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white">Distribusi Pengeluaran Turis</h4>
                 <span class="text-[10px] text-racing-red font-bold">BPS Data</span>
               </div>
               <div class="h-48 w-full flex items-center justify-center">
                 <canvas id="chartPengeluaranTuris"></canvas>
               </div>
             </div>
-            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300" data-i18n="chartSpendNote">
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
               <strong>Kesimpulan:</strong> 66% dari total pengeluaran wisatawan terserap di sektor Hotel dan Tiket resmi, sementara 34% sisanya dinikmati langsung oleh warung dan UMKM suvenir lokal.
             </div>
           </div>
@@ -631,77 +600,78 @@
           <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
             <div>
               <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
-                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white" data-i18n="chartJobTitle">Penyerapan Pekerja Lokal</h4>
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white">Penyerapan Pekerja Lokal</h4>
                 <span class="text-[10px] text-racing-red font-bold">10.250 Total</span>
               </div>
               <div class="h-48 w-full flex items-center justify-center">
                 <canvas id="chartPekerjaLokal"></canvas>
               </div>
             </div>
-            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300" data-i18n="chartJobNote">
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
               <strong>Kesimpulan:</strong> Divisi Track Marshals dan Hospitality menyerap 60% tenaga kerja pemuda NTB yang telah tersertifikasi lisensi FIM Safety Standard.
             </div>
           </div>
         </div>
+
       </div>
 
       <!-- ========================================================================= -->
-      <!-- TAB 3: PETA HOTEL, RESORT, BEACH CLUBS & GAYA HIDUP                      -->
+      <!-- TAB 3: PETA HOTEL & RESORT + DENAH TIKET SIRKUIT                          -->
       <!-- ========================================================================= -->
-      <div id="tab-hotel-map" class="tab-pane hidden space-y-8 w-full">
-        <!-- Denah Sirkuit & Pilihan Kategori Tiket -->
+      <div id="tab-hotel-map" class="tab-pane hidden space-y-6 sm:space-y-8 w-full">
+        <!-- Denah Sirkuit -->
         <div class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
           <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
             <div>
-              <span class="bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase tracking-wider" data-i18n="matrixBadge">
+              <span class="bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase tracking-wider">
                 Integrated Seating & Hospitality Matrix
               </span>
-              <h2 class="headline-font text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1 break-words" data-i18n="layoutMainTitle">
+              <h2 class="headline-font text-xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1 break-words">
                 Denah Layout Sirkuit Mandalika & Pilihan Kategori Tiket
               </h2>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="layoutMainDesc">
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Klik salah satu zona tribun di bawah ini untuk melihat data analitik sudut pandang, beban deselerasi G-Force, serta akses fasilitas resminya.
               </p>
             </div>
             <a href="http://gpticket.themandalikagp.com" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow shrink-0">
-              <i data-lucide="ticket" class="w-3.5 h-3.5"></i> <span data-i18n="buyOfficialTicket">Beli Tiket Resmi MGPA ↗</span>
+              <i data-lucide="ticket" class="w-3.5 h-3.5"></i> <span>Beli Tiket Resmi MGPA ↗</span>
             </a>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div class="lg:col-span-7 bg-slate-50 dark:bg-black/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-800">
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="zone-btn-container">
-                <button onclick="showZoneInfo('premiere', this)" class="zone-btn p-3 bg-white dark:bg-slate-800 border-2 border-racing-red rounded-xl text-left transition shadow-sm">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <button onclick="showZoneInfo('premiere')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
                   <span class="text-[10px] text-racing-red font-black block">VIP HOSPITALITY</span>
                   <span class="text-xs font-bold text-slate-900 dark:text-white">VIP Premiere</span>
                   <span class="text-[10px] text-slate-400 block mt-1">Starting Grid & Pitlane</span>
                 </button>
 
-                <button onclick="showZoneInfo('deluxe', this)" class="zone-btn p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-left transition hover:border-racing-red">
+                <button onclick="showZoneInfo('deluxe')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
                   <span class="text-[10px] text-racing-red font-black block">VIP HOSPITALITY</span>
                   <span class="text-xs font-bold text-slate-900 dark:text-white">VIP Deluxe</span>
                   <span class="text-[10px] text-slate-400 block mt-1">Outdoor + AC Lounge</span>
                 </button>
 
-                <button onclick="showZoneInfo('t1', this)" class="zone-btn p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-left transition hover:border-racing-red">
+                <button onclick="showZoneInfo('t1')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
                   <span class="text-[10px] text-racing-red font-black block">HARD BRAKING</span>
                   <span class="text-xs font-bold text-slate-900 dark:text-white">Luxury Tent (T1)</span>
                   <span class="text-[10px] text-slate-400 block mt-1">Beban Rem 1.5G</span>
                 </button>
 
-                <button onclick="showZoneInfo('grandstand_covered', this)" class="zone-btn p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-left transition hover:border-racing-red">
+                <button onclick="showZoneInfo('grandstand_covered')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
                   <span class="text-[10px] text-racing-red font-black block">PREMIUM SEATS</span>
                   <span class="text-xs font-bold text-slate-900 dark:text-white">Grandstand A, B, C, J, K</span>
                   <span class="text-[10px] text-slate-400 block mt-1">Covered (Beratap)</span>
                 </button>
 
-                <button onclick="showZoneInfo('grandstand_regular', this)" class="zone-btn p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-left transition hover:border-racing-red">
+                <button onclick="showZoneInfo('grandstand_regular')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
                   <span class="text-[10px] text-racing-red font-black block">REGULAR SEATS</span>
                   <span class="text-xs font-bold text-slate-900 dark:text-white">Grandstand E, G, H, I</span>
                   <span class="text-[10px] text-slate-400 block mt-1">Uncovered (Terbuka)</span>
                 </button>
 
-                <button onclick="showZoneInfo('festival', this)" class="zone-btn p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-left transition hover:border-racing-red">
+                <button onclick="showZoneInfo('festival')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
                   <span class="text-[10px] text-racing-red font-black block">GENERAL ADMISSION</span>
                   <span class="text-xs font-bold text-slate-900 dark:text-white">Festival - Hill View</span>
                   <span class="text-[10px] text-slate-400 block mt-1">Area Bukit & Konser</span>
@@ -710,7 +680,7 @@
             </div>
 
             <div class="lg:col-span-5 bg-slate-50 dark:bg-racing-asphalt rounded-2xl p-6 border border-slate-200 dark:border-slate-800" id="zone-details-card">
-              <span class="bg-racing-red text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider" data-i18n="tribuneIntelBadge">
+              <span class="bg-racing-red text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider">
                 Data Intelijen Tribun Terpilih
               </span>
               <h3 class="text-xl font-black text-slate-900 dark:text-white mt-2" id="zone-title">VIP Hospitality - Premiere</h3>
@@ -720,41 +690,14 @@
 
               <div class="grid grid-cols-2 gap-3 mt-4 text-xs">
                 <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-                  <span class="text-[10px] text-slate-400 block uppercase font-bold" data-i18n="facilityLabel">Fasilitas:</span>
+                  <span class="text-[10px] text-slate-400 block uppercase font-bold">Fasilitas:</span>
                   <span class="font-bold text-racing-red" id="zone-facility">Full F&B, AC, Pitlane Walk</span>
                 </div>
                 <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
-                  <span class="text-[10px] text-slate-400 block uppercase font-bold" data-i18n="gforceLabel">G-Force Pengamatan:</span>
-                  <span class="font-bold text-racing-red" id="zone-gforce">1.2G — 1.5G (Apex Acceleration Straight)</span>
+                  <span class="text-[10px] text-slate-400 block uppercase font-bold">G-Force Pengamatan:</span>
+                  <span class="font-bold text-racing-red" id="zone-gforce">1.2G — 1.5G (Apex Acceleration)</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DASHBOARD HOSPITALITY BARU -->
-        <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-8 shadow-sm space-y-6 w-full">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
-            <div>
-              <h3 class="text-lg font-black text-slate-900 dark:text-white uppercase flex items-center gap-2">
-                <i data-lucide="martini" class="w-5 h-5 text-blue-500"></i>
-                <span>Hospitality & Lifestyle Dashboard</span>
-              </h3>
-              <p class="text-xs text-slate-500">Analisis tarif kamar, demografi turis, dan jenis akomodasi KEK Mandalika.</p>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-              <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white mb-2">Lonjakan Harga Kamar (ARR)</h4>
-              <div class="h-44 w-full"><canvas id="chartHospitalityPrice"></canvas></div>
-            </div>
-            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-              <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white mb-2">Demografi Asal Turis GP</h4>
-              <div class="h-44 w-full flex justify-center"><canvas id="chartHospitalityDemo"></canvas></div>
-            </div>
-            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-              <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white mb-2">Jenis Akomodasi Tersedia</h4>
-              <div class="h-44 w-full flex justify-center"><canvas id="chartHospitalityType"></canvas></div>
             </div>
           </div>
         </div>
@@ -769,7 +712,7 @@
               </h3>
               <p class="text-xs text-slate-500" data-i18n="hotelDirDesc">Lengkap dengan rute navigasi Google Maps, jarak tempuh, dan portal reservasi resmi.</p>
             </div>
-            <span class="text-xs font-bold text-racing-red bg-red-50 dark:bg-red-950/50 border border-red-200 px-3 py-1 rounded-full" data-i18n="hotelOccupancyAlert">
+            <span class="text-xs font-bold text-racing-red bg-red-50 dark:bg-red-950/50 border border-red-200 px-3 py-1 rounded-full">
               Keterisian 98.2% Saat Race Week
             </span>
           </div>
@@ -974,145 +917,19 @@
             </div>
           </div>
         </div>
-
-        <!-- TAMBAHAN BARU: BEACH CLUBS & BARS (DENGAN IKON LENGKAP) -->
-        <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-8 shadow-sm space-y-6 w-full">
-          <div class="pb-3 border-b border-slate-200 dark:border-slate-800">
-            <h3 class="text-lg font-black text-slate-900 dark:text-white uppercase flex items-center gap-2">
-              <i data-lucide="glass-water" class="w-5 h-5 text-orange-500"></i>
-              <span>Beach Clubs, Bars & Lifestyle Directory</span>
-            </h3>
-            <p class="text-xs text-slate-500">Destinasi malam, tempat nongkrong pembalap, dan club pantai favorit di Kuta Mandalika.</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
-              <div>
-                <div class="h-44 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80" alt="Beach Club" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow flex items-center gap-1">
-                    <i data-lucide="waves" class="w-3 h-3"></i> BEACH CLUB
-                  </span>
-                </div>
-                <div class="p-4 space-y-1">
-                  <h4 class="text-base font-black text-slate-900 dark:text-white">Mandalika Beach Club</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">Pusat after-party resmi MotoGP. Kolam renang infinity dengan DJ Internasional.</p>
-                </div>
-              </div>
-              <div class="p-4 pt-0 border-t border-slate-200 dark:border-slate-800/80 mt-2 pt-3 flex justify-between items-center">
-                <span class="text-[10px] text-slate-400">📍 Pantai Kuta</span>
-                <a href="https://maps.google.com/?q=Mandalika+Beach+Club" target="_blank" class="text-xs font-bold text-orange-500 underline flex items-center gap-1">Navigasi ↗</a>
-              </div>
-            </div>
-
-            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
-              <div>
-                <div class="h-44 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=700&q=80" alt="Surfers Bar" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow flex items-center gap-1">
-                    <i data-lucide="beer" class="w-3 h-3"></i> NIGHT BAR
-                  </span>
-                </div>
-                <div class="p-4 space-y-1">
-                  <h4 class="text-base font-black text-slate-900 dark:text-white">Surfer's Bar Kuta</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">Bar ikonik di pinggir pantai Kuta. Bir dingin, live music, dan tongkrongan mekanik balap bule.</p>
-                </div>
-              </div>
-              <div class="p-4 pt-0 border-t border-slate-200 dark:border-slate-800/80 mt-2 pt-3 flex justify-between items-center">
-                <span class="text-[10px] text-slate-400">📍 Kuta Beach St.</span>
-                <a href="https://maps.google.com/?q=Surfers+Bar+Kuta+Lombok" target="_blank" class="text-xs font-bold text-orange-500 underline flex items-center gap-1">Navigasi ↗</a>
-              </div>
-            </div>
-
-            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
-              <div>
-                <div class="h-44 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=700&q=80" alt="El Bazar" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow flex items-center gap-1">
-                    <i data-lucide="utensils" class="w-3 h-3"></i> MEDITERRANEAN CAFE
-                  </span>
-                </div>
-                <div class="p-4 space-y-1">
-                  <h4 class="text-base font-black text-slate-900 dark:text-white">El Bazar Cafe & Resto</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">Restoran paling hits di Kuta dengan menu Mediterania premium. Sering dikunjungi riders.</p>
-                </div>
-              </div>
-              <div class="p-4 pt-0 border-t border-slate-200 dark:border-slate-800/80 mt-2 pt-3 flex justify-between items-center">
-                <span class="text-[10px] text-slate-400">📍 Main Street Kuta</span>
-                <a href="https://maps.google.com/?q=El+Bazar+Kuta+Lombok" target="_blank" class="text-xs font-bold text-orange-500 underline flex items-center gap-1">Navigasi ↗</a>
-              </div>
-            </div>
-
-            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
-              <div>
-                <div class="h-44 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80" alt="Seger Sunset Lounge" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow flex items-center gap-1">
-                    <i data-lucide="sunset" class="w-3 h-3"></i> SUNSET LOUNGE
-                  </span>
-                </div>
-                <div class="p-4 space-y-1">
-                  <h4 class="text-base font-black text-slate-900 dark:text-white">Seger Sunset Lounge</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">View langsung ke laut lepas dan sirkuit tikungan 10. Cocok untuk bersantai sore hari.</p>
-                </div>
-              </div>
-              <div class="p-4 pt-0 border-t border-slate-200 dark:border-slate-800/80 mt-2 pt-3 flex justify-between items-center">
-                <span class="text-[10px] text-slate-400">📍 Bukit Seger</span>
-                <a href="https://maps.google.com/?q=Bukit+Seger+Mandalika" target="_blank" class="text-xs font-bold text-orange-500 underline flex items-center gap-1">Navigasi ↗</a>
-              </div>
-            </div>
-
-            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
-              <div>
-                <div class="h-44 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=700&q=80" alt="Cantina" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow flex items-center gap-1">
-                    <i data-lucide="flame" class="w-3 h-3"></i> MEXICAN TACOS
-                  </span>
-                </div>
-                <div class="p-4 space-y-1">
-                  <h4 class="text-base font-black text-slate-900 dark:text-white">Kuta Cantina</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">Taco dan Margarita terbaik di Lombok. Spot pre-party favorit anak muda dan turis asing.</p>
-                </div>
-              </div>
-              <div class="p-4 pt-0 border-t border-slate-200 dark:border-slate-800/80 mt-2 pt-3 flex justify-between items-center">
-                <span class="text-[10px] text-slate-400">📍 Kuta Center</span>
-                <a href="https://maps.google.com/?q=Kuta+Cantina+Lombok" target="_blank" class="text-xs font-bold text-orange-500 underline flex items-center gap-1">Navigasi ↗</a>
-              </div>
-            </div>
-
-            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
-              <div>
-                <div class="h-44 overflow-hidden relative">
-                  <img src="https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&w=700&q=80" alt="The Hut" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  <span class="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow flex items-center gap-1">
-                    <i data-lucide="music" class="w-3 h-3"></i> PUB & BILLIARD
-                  </span>
-                </div>
-                <div class="p-4 space-y-1">
-                  <h4 class="text-base font-black text-slate-900 dark:text-white">The Hut Nightlife</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">Sports bar untuk nobar balapan ulang, main billiard, dan menikmati keramaian malam Kuta.</p>
-                </div>
-              </div>
-              <div class="p-4 pt-0 border-t border-slate-200 dark:border-slate-800/80 mt-2 pt-3 flex justify-between items-center">
-                <span class="text-[10px] text-slate-400">📍 Kuta Strip</span>
-                <a href="https://maps.google.com/?q=The+Hut+Kuta+Lombok" target="_blank" class="text-xs font-bold text-orange-500 underline flex items-center gap-1">Navigasi ↗</a>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- ========================================================================= -->
       <!-- TAB 4: GRID PEMBALAP LENGKAP MOTOGP, MOTO2 (28) & MOTO3 (26)             -->
       <!-- ========================================================================= -->
       <div id="tab-grid2026" class="tab-pane hidden space-y-6 w-full">
+        
         <div class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 transition-colors w-full">
           <div>
-            <span class="bg-racing-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider" data-i18n="gridDatabaseBadge">
+            <span class="bg-racing-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
               Official Rider & Team Database
             </span>
-            <h2 class="headline-font text-2xl font-black text-slate-900 dark:text-white mt-2 break-words" data-i18n="gridMainTitle">
+            <h2 class="headline-font text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-2 break-words" data-i18n="gridMainTitle">
               Grid Pembalap Resmi MotoGP™, Moto2™ & Moto3™
             </h2>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="gridMainDesc">
@@ -1126,35 +943,37 @@
           </div>
         </div>
 
-        <!-- FILTER KATEGORI KELAS BALAP (TANPA ANGKA) -->
+        <!-- FILTER KATEGORI KELAS BALAP -->
         <div class="flex flex-wrap items-center gap-2">
           <button onclick="filterRiderClass('motogp')" id="btn-class-motogp" class="px-5 py-2.5 rounded-xl text-xs font-black bg-racing-red text-white shadow-md transition">
-            MotoGP™
+            MotoGP™ (22)
           </button>
           <button onclick="filterRiderClass('moto2')" id="btn-class-moto2" class="px-5 py-2.5 rounded-xl text-xs font-black bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-racing-red hover:text-white transition">
-            Moto2™
+            Moto2™ (28)
           </button>
           <button onclick="filterRiderClass('moto3')" id="btn-class-moto3" class="px-5 py-2.5 rounded-xl text-xs font-black bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-racing-red hover:text-white transition">
-            Moto3™
+            Moto3™ (26)
           </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full" id="container-grid-riders">
           <!-- Injected via JavaScript -->
         </div>
+
       </div>
 
       <!-- ========================================================================= -->
       <!-- TAB 5: MANDALIKA GP SERIES                                               -->
       <!-- ========================================================================= -->
       <div id="tab-gpseries" class="tab-pane hidden space-y-6 w-full">
+        
         <div class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
           <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <span class="bg-racing-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider" data-i18n="gpSeriesBadge">
+              <span class="bg-racing-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
                 Official Mandalika GP Series Directory
               </span>
-              <h2 class="headline-font text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2 break-words" data-i18n="gpSeriesTitle">
+              <h2 class="headline-font text-xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2 break-words">
                 7 Kejuaraan Motorsport Resmi di Sirkuit Mandalika
               </h2>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -1162,7 +981,7 @@
               </p>
             </div>
             <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow shrink-0">
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> <span data-i18n="openMgpaWeb">Buka Web Resmi MGPA ↗</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka Web Resmi MGPA ↗
             </a>
           </div>
 
@@ -1181,7 +1000,7 @@
 
             <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-black text-racing-red uppercase">REGIONAL CHAMPIONSHIP</span>
+                <span class="text-[10px] font-black text-blue-600 uppercase">REGIONAL CHAMPIONSHIP</span>
                 <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">FIM Asia Road Racing (ARRC)</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Kejuaraan balap motor regional tertinggi di Asia pembinaan talenta pembalap muda Indonesia.</p>
               </div>
@@ -1193,7 +1012,7 @@
 
             <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-black text-racing-red uppercase">PORSCHE PYRAMID</span>
+                <span class="text-[10px] font-black text-amber-500 uppercase">PORSCHE PYRAMID</span>
                 <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">Porsche Sprint Challenge Indonesia</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Bagian resmi dari piramida motorsport global Porsche yang terhubung langsung dengan balap Le Mans.</p>
               </div>
@@ -1205,7 +1024,7 @@
 
             <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-black text-racing-red uppercase">KEJURNAS BALAP MOTOR</span>
+                <span class="text-[10px] font-black text-emerald-600 uppercase">KEJURNAS BALAP MOTOR</span>
                 <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">Mandalika Racing Series (MRS)</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Kejuaraan Nasional Sportbike Indonesia wadah pembinaan talenta pembalap muda tanah air.</p>
               </div>
@@ -1217,7 +1036,7 @@
 
             <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-black text-racing-red uppercase">FESTIVAL OF SPEED</span>
+                <span class="text-[10px] font-black text-purple-600 uppercase">FESTIVAL OF SPEED</span>
                 <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">Mandalika Festival of Speed (MFoS)</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Ajang balap spektakuler kreasi MGPA yang memadukan kompetisi kecepatan mobil touring dan ITCR.</p>
               </div>
@@ -1229,7 +1048,7 @@
 
             <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-black text-racing-red uppercase">TIME ATTACK</span>
+                <span class="text-[10px] font-black text-red-600 uppercase">TIME ATTACK</span>
                 <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">JDM Fun Day (85 Cars)</h3>
                 <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Temu akbar komunitas mobil performa tinggi Jepang terbesar di Indonesia dengan format Time Attack.</p>
               </div>
@@ -1239,10 +1058,10 @@
               </div>
             </div>
 
-            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-3">
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-emerald-500 rounded-2xl shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-3">
               <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <span class="text-[10px] font-black text-racing-red uppercase">SRO MOTORSPORTS GROUP</span>
+                  <span class="text-[10px] font-black text-mandalika-green uppercase">SRO MOTORSPORTS GROUP</span>
                   <h3 class="text-lg font-black text-slate-900 dark:text-white mt-1">GT World Challenge Asia (GT3 & GT4)</h3>
                   <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-3xl leading-relaxed">
                     Kejuaraan balap supercar GT3 paling bergengsi di benua Asia yang mempertemukan Ferrari, Porsche, Lamborghini, Mercedes-AMG, dan BMW di sirkuit Mandalika.
@@ -1255,9 +1074,11 @@
             </div>
           </div>
         </div>
+
       </div>
 
     </div>
+
   </div>
 
   <!-- ================= FLOATING WHATSAPP ================= -->
@@ -1272,7 +1093,7 @@
   </a>
 
   <!-- ================= MODAL BIOGRAFI PEMBALAP (BEBAS LOGIN) ================= -->
-  <div id="rider-modal" onclick="handleModalBackdropClick(event)" class="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+  <div id="rider-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-racing-asphaltCard text-slate-900 dark:text-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border-4 border-racing-red relative animate-in fade-in zoom-in duration-200">
       <button onclick="closeRiderModal()" class="absolute top-4 right-4 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 w-8 h-8 rounded-full flex items-center justify-center font-bold text-base transition hover:bg-racing-red hover:text-white">
         ✕
@@ -1282,16 +1103,16 @@
   </div>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="relative z-10 bg-white dark:bg-black border-t-2 border-slate-200 dark:border-slate-800 py-6 text-xs text-slate-600 dark:text-slate-400 transition-colors">
+  <footer class="bg-white dark:bg-black border-t-2 border-slate-200 dark:border-slate-800 py-6 text-xs text-slate-600 dark:text-slate-400 transition-colors">
     <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2 font-bold">
         <span class="text-racing-red font-black">M. NAUFAL ZAMANI</span>
         <span>•</span>
-        <span data-i18n="analystRole">LEAD MOTORSPORT DATA ANALYST</span>
+        <span>LEAD MOTORSPORT DATA ANALYST</span>
         <span>•</span>
         <span class="text-racing-red font-black">MANDALIKA DATA HUB</span>
       </div>
-      <div data-i18n="footerAudit">
+      <div>
         Data Resmi Diaudit: BPS NTB • MGPA • InJourney • Kemenpar • Dorna / FIM.
       </div>
     </div>
@@ -1299,6 +1120,7 @@
 
   <!-- ================= JAVASCRIPT LOGIC & DATABASE LENGKAP ================= -->
   <script>
+    // FUNGSI DRAWER MOBILE RESIK & TIDAK LOCK LAYAR
     function toggleMobileMenu() {
       const sidebar = document.getElementById('sidebar-drawer');
       const backdrop = document.getElementById('mobile-backdrop');
@@ -1315,23 +1137,8 @@
         navHotelMap: "3. Peta Hotel & Tiket",
         navGrid: "4. Grid Pembalap Resmi",
         navGPSeries: "5. Mandalika GP Series",
-        ticketBoxHeader: "Tiket Resmi MGPA",
-        ticketBoxDesc: "Pesan tiket resmi Grandstand, Deluxe & Premiere Class.",
-        ticketBoxBtn: "Beli Tiket Sekarang ↗",
-        heroSubtitle: "Portal Riset Makroekonomi, Antropologi Sejarah FIM & NTB, Serta Database Pembalap Dunia Terintegrasi.",
-        encyclopediaBadge: "Ensiklopedi Jurnalistik Motorsport & Budaya Nusantara",
         historyMainTitle: "Kronologi 75 Tahun Kejuaraan Dunia MotoGP & Sejarah Luhur Tanah Mandalika",
         historyMainDesc: "Didirikan pada 17 Juni 1949 oleh Fédération Internationale de Motocyclisme (FIM) di balapan Isle of Man TT, MotoGP merupakan kejuaraan motorsport tertua di muka bumi. Di sisi lain, pulau Lombok di Nusa Tenggara Barat menyimpan sejarah luhur legenda Putri Mandalika yang kini bertransformasi menjadi sirkuit balap tercantik di dunia.",
-        historyCitations: "Rujukan Ilmiah & Arsip Resmi: FIM Historical Archives (Geneva), Dorna Sports S.L. Annals (Madrid), ITDC Corporation Heritage File, BPS NTB Statistik Kepariwisataan (Katalog 518/2024), Balai Pelestarian Kebudayaan Wilayah XV NTB-NTT, dan Ikatan Motor Indonesia (IMI Sentul 1996-1997).",
-        sciTag: "Mahakarya Rp 50 Miliar",
-        sciTitle: "Sains Motor Prototype",
-        sciDesc: "Motor prototype MotoGP tidak dijual bebas. Dibangun dengan sasis serat karbon ultra-ringan, transmisi seamless gearbox seharga miliaran rupiah, dan rem karbon Brembo yang bekerja pada suhu ekstrem 1.000°C.",
-        rivTag: "Rivalitas Abadi",
-        rivTitle: "Benturan Para Legenda",
-        rivDesc: "Dari duel panas Mick Doohan vs Wayne Rainey, perseteruan epik Valentino Rossi vs Max Biaggi & Casey Stoner, hingga era perang taktik Marc Marquez melawan Jorge Lorenzo dan Francesco Bagnaia.",
-        sasakTag: "Kearifan Suku Sasak",
-        sasakTitle: "Tradisi Betabeq Mandalika",
-        sasakDesc: "Sebelum deru mesin prototype dimulai, para tokoh adat Sasak menggelar ritual Betabeq memohon keselamatan dan kelancaran kepada sang pencipta di tanah Mandalika yang sarat kesakralan.",
         fimErasTitle: "Evolusi Regulasi Mesin Dunia (1949–2027)",
         era1949Title: "1949: Kelahiran Resmi FIM (Isle of Man TT)",
         era1949Desc: "Leslie Graham juara dunia 500cc pertama menggunakan AJS Porcupine dengan kecepatan puncak 155 km/jam di balapan jalan raya paling berbahaya di dunia.",
@@ -1354,51 +1161,21 @@
         homologDesc: "Diresmikan November 2021 dengan aspal Stone Mastic Asphalt (SMA) terbaik dunia, menjamin grip optimal saat motor dipacu hingga 318 km/jam di udara pesisir Samudra Hindia.",
         chartSpeedTitle: "Grafik: Rekor Top Speed Sepanjang Era Mesin (1949–2027)",
         chartLegendsTitle: "Grafik: Distribusi Gelar Juara Dunia Terbanyak Sepanjang Masa",
-        analystLabel: "Hasil Analisis & Kesimpulan Data Analyst:",
-        chartSpeedAnalysis: "Lompatan kecepatan sebesar 136% dari 155 km/jam (1949) ke 366.1 km/jam (2024) membuktikan efisiensi termal mesin prototype modern. Regulasi mesin 850cc pada 2027 ditargetkan menstabilkan kecepatan puncak di ambang 340 km/jam demi faktor keselamatan pembalap.",
-        chartLegendsAnalysis: "Kuartet Agostini (15), Nieto (13), Rossi (9), dan Marquez (8) membentuk 35.8% dari total gelar juara dunia di era Grand Prix, membuktikan bahwa siklus dominasi juara dunia bertahan rata-rata 6–8 musim balap kompetitif.",
-        econAuditBadge: "Verified Economic Research (BPS NTB Audit)",
         econMainTitle: "Kajian Analisis Data: Dampak Sirkuit Mandalika Terhadap Ekonomi & Pariwisata NTB",
-        econDataSource: "Data Resmi: Badan Pusat Statistik (BPS) NTB Katalog 518/2024 & InJourney Tourism Development Corporation (ITDC).",
         kpiEconTurnover: "Perputaran Ekonomi",
-        kpiEconSub: "Multiplier Effect per Seri GP",
         kpiHotelOcc: "Okupansi Hotel Lombok",
-        kpiHotelSub: "Pekan Balap (Race Week)",
         kpiJobsAbsorbed: "Tenaga Kerja Terserap",
-        kpiJobsSub: "90% Pemuda Asli NTB",
         kpiMsmeGrowth: "Omzet UMKM Lokal",
-        kpiMsmeSub: "Lonjakan 3 Hari Balapan",
-        econConclusionTitle: "Kesimpulan Riset Data: Pariwisata NTB Tumbuh Sangat Pesat!",
-        econConclusionDesc: "Melalui metode analisis dampak berganda (*economic multiplier effect*), keberadaan sirkuit internasional ini berhasil mengubah peta pertumbuhan ekonomi kawasan timur Indonesia. Kunjungan wisatawan nusantara dan mancanegara naik 18% YoY, menjadikan KEK Mandalika lokomotif devisa pariwisata nasional.",
         chartEconTitle: "PDRB & Perputaran",
-        chartEconNote: "Kesimpulan: Nilai perputaran naik dari Rp 3.8T (2022) menjadi proyeksi Rp 4.8T (2026), menghasilkan rata-rata pengembalian investasi (ROI) daerah sebesar 18.4%.",
         chartHotelTitle: "Okupansi Hotel",
-        chartHotelNote: "Kesimpulan: Keterisian kamar di KEK Mandalika mencapai saturasi 98.2% pada akhir pekan GP, menyebarkan efek limpahan hunian (*overflow occupancy*) ke Kota Mataram hingga 92%.",
         chartAirportTitle: "Trafik Bandara BIL",
-        chartAirportNote: "Kesimpulan: Lonjakan harian tertinggi terjadi pada hari H balapan (14.200 pax/hari), menuntut operasional bandara non-stop 24 jam dengan penambahan 46 penerbangan ekstra.",
-        chartSectorTitle: "Pertumbuhan Sektor",
-        chartSectorNote: "Kesimpulan: Sektor Hotel (+18.2%) dan Transportasi (+14.8%) menjadi kontributor terbesar akselerasi ekonomi kuartal IV di NTB secara konsisten.",
-        chartSpendTitle: "Distribusi Pengeluaran Turis",
-        chartSpendNote: "Kesimpulan: 66% dari total pengeluaran wisatawan terserap di sektor Hotel dan Tiket resmi, sementara 34% sisanya dinikmati langsung oleh warung dan UMKM suvenir lokal.",
-        chartJobTitle: "Penyerapan Pekerja Lokal",
-        chartJobNote: "Kesimpulan: Divisi Track Marshals dan Hospitality menyerap 60% tenaga kerja pemuda NTB yang telah tersertifikasi lisensi FIM Safety Standard.",
-        matrixBadge: "Integrated Seating & Hospitality Matrix",
         layoutMainTitle: "Denah Layout Sirkuit Mandalika & Pilihan Kategori Tiket",
         layoutMainDesc: "Klik salah satu zona tribun di bawah ini untuk melihat data analitik sudut pandang, beban deselerasi G-Force, serta akses fasilitas resminya.",
         buyOfficialTicket: "Beli Tiket Resmi MGPA ↗",
-        tribuneIntelBadge: "Data Intelijen Tribun Terpilih",
-        facilityLabel: "Fasilitas:",
-        gforceLabel: "G-Force Pengamatan:",
         hotelDirTitle: "Direktori 9 Hotel & Resort Resmi Sekitar Mandalika",
         hotelDirDesc: "Lengkap dengan rute navigasi Google Maps, jarak tempuh, dan portal reservasi resmi.",
-        hotelOccupancyAlert: "Keterisian 98.2% Saat Race Week",
-        gridDatabaseBadge: "Official Rider & Team Database",
         gridMainTitle: "Grid Pembalap Resmi MotoGP™, Moto2™ & Moto3™",
-        gridMainDesc: "Pilih kelas balap di bawah ini dan klik nama pembalap untuk membuka kartu biodata resmi langsung tanpa login!",
-        gpSeriesBadge: "Official Mandalika GP Series Directory",
-        gpSeriesTitle: "7 Kejuaraan Motorsport Resmi di Sirkuit Mandalika",
-        openMgpaWeb: "Buka Web Resmi MGPA ↗",
-        footerAudit: "Data Resmi Diaudit: BPS NTB • MGPA • InJourney • Kemenpar • Dorna / FIM."
+        gridMainDesc: "Pilih kelas balap di bawah ini dan klik nama pembalap untuk membuka kartu biodata resmi langsung tanpa login!"
       },
       en: {
         verifiedSources: "AUDITED OFFICIAL PORTALS:",
@@ -1408,37 +1185,22 @@
         navHotelMap: "3. Hotels & Tickets Map",
         navGrid: "4. Official Riders Grid",
         navGPSeries: "5. Mandalika GP Series",
-        ticketBoxHeader: "Official MGPA Tickets",
-        ticketBoxDesc: "Book official Grandstand, Deluxe & Premiere Class passes.",
-        ticketBoxBtn: "Buy Tickets Now ↗",
-        heroSubtitle: "Macroeconomic Research Portal, FIM & NTB Anthropological Heritage, and Integrated Global Driver Database.",
-        encyclopediaBadge: "Motorsport & Cultural Heritage Journalism Encyclopedia",
-        historyMainTitle: "75-Year Chronology of MotoGP World Championship & Ancient Heritage of Mandalika",
-        historyMainDesc: "Founded on June 17, 1949, by the FIM at the Isle of Man TT, MotoGP is the oldest motorsport championship on Earth. Meanwhile, Lombok holds the sacred legend of Princess Mandalika, now transformed into the world's most scenic circuit.",
-        historyCitations: "Scientific Citations & Official Archives: FIM Historical Archives (Geneva), Dorna Sports S.L. Annals (Madrid), ITDC Corporation Heritage File, BPS NTB Tourism Statistics (Catalog 518/2024), Balai Pelestarian Kebudayaan Region XV NTB-NTT, and Ikatan Motor Indonesia (IMI Sentul 1996-1997).",
-        sciTag: "50-Billion IDR Masterpiece",
-        sciTitle: "Prototype Motorcycle Science",
-        sciDesc: "MotoGP prototypes are not for commercial sale. Engineered with ultra-light carbon chassis, seamless transmissions costing billions, and Brembo carbon rotors operating at 1,000°C extreme heat.",
-        rivTag: "Eternal Rivalries",
-        rivTitle: "Clash of the Titans",
-        rivDesc: "From Mick Doohan vs Wayne Rainey, the legendary Valentino Rossi vs Max Biaggi & Casey Stoner feud, to the tactical masterclass wars between Marc Marquez, Jorge Lorenzo, and Bagnaia.",
-        sasakTag: "Sasak Indigenous Wisdom",
-        sasakTitle: "Betabeq Sacred Ritual",
-        sasakDesc: "Before prototype engines roar, Sasak elder chieftains conduct the Betabeq sacred prayer ceremony seeking blessings and supreme safety on Mandalika's sacred soil.",
+        historyMainTitle: "75 Years of MotoGP Chronology (1949 — 2027) & Mandalika's Cultural Heritage",
+        historyMainDesc: "Founded on June 17, 1949, by the FIM at the Isle of Man TT, MotoGP is the oldest motorsport championship. Meanwhile, Lombok holds the sacred legend of Princess Mandalika, now hosting the world's most scenic circuit.",
         fimErasTitle: "World Engine Regulation Evolution (1949–2027)",
         era1949Title: "1949: Official FIM Inception (Isle of Man TT)",
         era1949Desc: "Leslie Graham won the inaugural 500cc World Championship riding the AJS Porcupine reaching 155 km/h top speeds on the world's most perilous road circuit.",
         era1975Title: "1975–2001: 500cc 2-Stroke Beasts (\"The Golden Era\")",
-        era1975Desc: "Raw 200 hp two-stroke prototypes without electronic traction control. Mick Doohan achieved a legendary 5 consecutive world titles with Honda NSR500 via powerslides.",
+        era1975Desc: "Raw 200 hp two-stroke prototypes without electronic traction control. Mick Doohan achieved a legendary 5 consecutive world titles with Honda NSR500.",
         era1996Title: "1996–1997: Sentul Circuit Golden Era (Indonesia)",
-        era1996Desc: "Indonesia hosted its first official FIM GP. Mick Doohan dominated the 500cc class (1996), and young Valentino Rossi took his maiden victory in 125cc (1997).",
+        era1996Desc: "Indonesia hosted its first official FIM GP. Mick Doohan dominated the 500cc class (1996), and young Valentino Rossi took his maiden Indonesian victory in 125cc (1997).",
         era2002Title: "2002–2026: 4-Stroke 990cc, 800cc & Aero 1000cc Era",
         era2002Desc: "Valentino Rossi, Casey Stoner, and Marc Marquez built historic dynasties. Brad Binder set the all-time top speed record of 366.1 km/h on the KTM RC16.",
         era2027Title: "2027: Next-Gen 850cc Engine Era",
         era2027Desc: "FIM downsizes displacement to 850cc, completely bans ride-height devices, and reduces aero winglets to put raw rider skill back in full control.",
         ntbHeritageTitle: "Heritage & Ancient Legacy of Mandalika, West Nusa Tenggara",
         folkloreTitle: "Folklore of Princess Mandalika (Bau Nyale Tradition)",
-        folkloreDesc: "The tale of a princess who sacrificed herself into the Seger Sea to prevent war among rival kingdoms. Legend says her soul transforms annually into glowing sea worms (Nyale), celebrating unity and peace.",
+        folkloreDesc: "The tale of a princess who sacrificed herself into the Seger Sea to prevent bloodshed among rival kingdoms. Legend says her soul transforms annually into glowing sea worms (Nyale), celebrating unity and peace.",
         tenunTitle: "Sasak Traditional Weaving Art on Circuit Run-Offs",
         tenunDesc: "The intricate indigenous Sasak textile pattern is painted across the run-off areas of Turns 15, 16, and 17 across 50,000 m², showcasing Indonesian culture to global broadcast viewers in 200+ territories.",
         transfTitle: "Transformation into a Special Economic Zone (SEZ)",
@@ -1447,51 +1209,21 @@
         homologDesc: "Inaugurated in November 2021 with Stone Mastic Asphalt (SMA) technology, providing superior grip as prototype bikes blast at 318 km/h along the Indian Ocean coastline.",
         chartSpeedTitle: "Chart: Top Speed Record Across Engine Eras (1949–2027)",
         chartLegendsTitle: "Chart: All-Time Championship Titles Distribution",
-        analystLabel: "Data Analyst Takeaways & Conclusions:",
-        chartSpeedAnalysis: "A 136% velocity expansion from 155 km/h (1949) to 366.1 km/h (2024) proves the thermal efficiency of modern prototypes. The 2027 850cc shift aims to stabilize top speeds around 340 km/h for rider safety.",
-        chartLegendsAnalysis: "The quartet of Agostini (15), Nieto (13), Rossi (9), and Marquez (8) represents 35.8% of all Premier Class titles, illustrating that peak dominance cycles persist for 6–8 competitive seasons.",
-        econAuditBadge: "Verified Economic Research (BPS NTB Audit)",
         econMainTitle: "Data Analysis Report: Economic Multiplier Impact of Mandalika Circuit",
-        econDataSource: "Official Sources: BPS Statistics NTB (Catalog 518/2024) & InJourney Tourism Development Corporation (ITDC).",
         kpiEconTurnover: "Economic Circulation",
-        kpiEconSub: "Multiplier Effect per GP Round",
         kpiHotelOcc: "Lombok Hotel Occupancy",
-        kpiHotelSub: "Race Weekend Peak",
         kpiJobsAbsorbed: "Local Jobs Absorbed",
-        kpiJobsSub: "90% Indigenous NTB Youth",
-        kpiMsmeGrowth: "Local MSME Revenue",
-        kpiMsmeSub: "3-Day Race Spike",
-        econConclusionTitle: "Data Finding: NTB Tourism & Regional Output Expanding Rapidly!",
-        econConclusionDesc: "Through economic multiplier telemetry, the international circuit has altered regional capital flows in Eastern Indonesia. Tourist visits jumped 18% YoY, cementing SEZ Mandalika as a national engine of foreign exchange.",
-        chartEconTitle: "GDP & Circulation",
-        chartEconNote: "Takeaway: Value expanded from Rp 3.8T (2022) to an estimated Rp 4.8T (2026), producing an 18.4% regional ROI.",
+        kpiMsmeGrowth: "Local MSME Growth",
+        chartEconTitle: "GDP & Turnover",
         chartHotelTitle: "Hotel Occupancy",
-        chartHotelNote: "Takeaway: SEZ Mandalika hits 98.2% peak capacity, spreading overflow occupancy to Mataram City at 92%.",
         chartAirportTitle: "Lombok Airport Traffic (BIL)",
-        chartAirportNote: "Takeaway: Peak daily passenger influx reaches 14,200 pax on Race Day, handled by 24-hr round-the-clock operations and 46 extra flights.",
-        chartSectorTitle: "Sectoral Growth",
-        chartSectorNote: "Takeaway: Hospitality (+18.2%) and Transit (+14.8%) represent the primary growth contributors every Q4 in NTB.",
-        chartSpendTitle: "Visitor Spending Split",
-        chartSpendNote: "Takeaway: 66% of tourist expenditure flows into Hospitality and Official Tickets, with 34% fueling local gastronomy and craft MSMEs.",
-        chartJobTitle: "Local Workforce Absorption",
-        chartJobNote: "Takeaway: Marshals and Hospitality divisions absorb 60% of NTB youth certified under FIM Safety Standards.",
-        matrixBadge: "Integrated Seating & Hospitality Matrix",
         layoutMainTitle: "Mandalika Circuit Layout & Ticket Intelligence",
         layoutMainDesc: "Click any grandstand category below to analyze telemetry viewing angles, braking g-forces, and official hospitality amenities.",
         buyOfficialTicket: "Buy Official MGPA Ticket ↗",
-        tribuneIntelBadge: "Selected Grandstand Intelligence",
-        facilityLabel: "Facilities:",
-        gforceLabel: "Observed G-Force:",
         hotelDirTitle: "Official 9 Hotels & Resorts Directory Around Mandalika",
         hotelDirDesc: "Featuring authentic resort photography, direct Google Maps navigation, and official booking portals.",
-        hotelOccupancyAlert: "98.2% Occupancy Rate in Race Week",
-        gridDatabaseBadge: "Official Rider & Team Database",
         gridMainTitle: "Official Riders Grid: MotoGP™, Moto2™ & Moto3™",
-        gridMainDesc: "Select racing class below and click any rider name to open the official bio dossier directly without login barriers!",
-        gpSeriesBadge: "Official Mandalika GP Series Directory",
-        gpSeriesTitle: "7 Official Motorsport Championships at Mandalika",
-        openMgpaWeb: "Open Official MGPA Web ↗",
-        footerAudit: "Official Audited Data: BPS NTB • MGPA • InJourney • Ministry of Tourism • Dorna / FIM."
+        gridMainDesc: "Select racing class below and click any rider name to open the official bio dossier directly without login barriers!"
       }
     };
 
@@ -1652,6 +1384,7 @@
       lucide.createIcons();
     }
 
+    // MODAL LENGKAP & TAUTAN BEBAS LOGIN
     function openRiderModal(riderId) {
       let r = null;
       for (const cls in RIDERS_DATABASE) {
@@ -1663,6 +1396,7 @@
       const modal = document.getElementById('rider-modal');
       const content = document.getElementById('modal-content');
 
+      // Tautan Publik Tanpa Login ke Wikipedia / Motorsport Database
       const openFreeUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(r.name + ' motorcycle racer')}`;
 
       content.innerHTML = `
@@ -1723,16 +1457,6 @@
       document.getElementById('rider-modal').classList.add('hidden');
     }
 
-    function handleModalBackdropClick(event) {
-      if (event.target.id === 'rider-modal') {
-        closeRiderModal();
-      }
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeRiderModal();
-    });
-
     const ZONE_INFO = {
       premiere: {
         title: "VIP Hospitality - Premiere",
@@ -1772,30 +1496,18 @@
       }
     };
 
-    function showZoneInfo(zoneKey, btnEl) {
+    function showZoneInfo(zoneKey) {
       const z = ZONE_INFO[zoneKey];
       if (!z) return;
       document.getElementById('zone-title').innerText = z.title;
       document.getElementById('zone-desc').innerText = z.desc;
       document.getElementById('zone-facility').innerText = z.facility;
       document.getElementById('zone-gforce').innerText = z.gforce;
-
-      if (btnEl) {
-        document.querySelectorAll('.zone-btn').forEach(btn => {
-          btn.classList.remove('border-2', 'border-racing-red', 'shadow-sm');
-          btn.classList.add('border', 'border-slate-200', 'dark:border-slate-700');
-        });
-        btnEl.classList.remove('border', 'border-slate-200', 'dark:border-slate-700');
-        btnEl.classList.add('border-2', 'border-racing-red', 'shadow-sm');
-      }
     }
 
-    let isEconChartsInit = false;
-    let isHospChartsInit = false;
-
+    // FUNGSI INISIALISASI HALAMAN & TAB
     function switchTab(tabId) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
-      
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('bg-racing-red', 'text-white', 'shadow-lg');
         btn.classList.add('bg-racing-sidebarCard', 'text-slate-300');
@@ -1810,25 +1522,13 @@
         activeBtn.classList.add('bg-racing-red', 'text-white', 'shadow-lg');
       }
 
-      if (tabId === 'tab-ekonomi' && !isEconChartsInit) {
-        initChartEkonomiNTB();
-        initChartOkupansiHotel();
-        initChartTrafikBandara();
-        initChartPDRBSektor();
-        initChartPengeluaranTuris();
-        initChartPekerjaLokal();
-        isEconChartsInit = true;
-      }
-
-      if (tabId === 'tab-hotel-map' && !isHospChartsInit) {
-        initHospitalityCharts();
-        isHospChartsInit = true;
-      }
-
+      // Tutup otomatis drawer di HP dan hilangkan overlay hitam
       const sidebar = document.getElementById('sidebar-drawer');
       const backdrop = document.getElementById('mobile-backdrop');
       if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
         sidebar.classList.add('-translate-x-full');
+      }
+      if (backdrop && !backdrop.classList.contains('hidden')) {
         backdrop.classList.add('hidden');
       }
 
@@ -1840,6 +1540,12 @@
       renderRidersGrid();
       initChartSejarahSpeed();
       initAllTimeLegendsChart();
+      initChartEkonomiNTB();
+      initChartOkupansiHotel();
+      initChartTrafikBandara();
+      initChartPDRBSektor();
+      initChartPengeluaranTuris();
+      initChartPekerjaLokal();
     });
 
     // ================= INITIALIZE CHARTS =================
@@ -1862,7 +1568,7 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          scales: { y: { min: 140, max: 380, grid: { color: 'rgba(150, 150, 150, 0.2)' } } }
+          scales: { y: { min: 140, max: 380, grid: { color: '#e2e8f0' } } }
         }
       });
     }
@@ -1903,7 +1609,7 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: { y: { min: 2.0, max: 6.0, grid: { color: 'rgba(150, 150, 150, 0.2)' } } }
+          scales: { y: { min: 2.0, max: 6.0, grid: { color: '#e2e8f0' } } }
         }
       });
     }
@@ -1922,7 +1628,7 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          scales: { y: { min: 0, max: 100, grid: { color: 'rgba(150, 150, 150, 0.2)' } } }
+          scales: { y: { min: 0, max: 100, grid: { color: '#e2e8f0' } } }
         }
       });
     }
@@ -1947,7 +1653,7 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: { y: { grid: { color: 'rgba(150, 150, 150, 0.2)' } } }
+          scales: { y: { grid: { color: '#e2e8f0' } } }
         }
       });
     }
@@ -1969,7 +1675,7 @@
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: { y: { grid: { color: 'rgba(150, 150, 150, 0.2)' } } }
+          scales: { y: { grid: { color: '#e2e8f0' } } }
         }
       });
     }
@@ -2011,51 +1717,22 @@
         }
       });
     }
+  </script>
 
-    function initHospitalityCharts() {
-      new Chart(document.getElementById('chartHospitalityPrice'), {
-        type: 'line',
-        data: {
-          labels: ['Agt', 'Sep', 'Race Week', 'Nov'],
-          datasets: [{ label: 'ARR (Juta IDR)', data: [1.2, 1.1, 4.8, 1.0], borderColor: '#e10600', backgroundColor: 'rgba(225,6,0,0.1)', fill: true, tension: 0.4 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-      });
-      new Chart(document.getElementById('chartHospitalityDemo'), {
-        type: 'doughnut',
-        data: {
-          labels: ['Lokal (55%)', 'Eropa (25%)', 'Asia (15%)', 'Aus (5%)'],
-          datasets: [{ data: [55, 25, 15, 5], backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6'] }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 8, font:{size: 8} } } } }
-      });
-      new Chart(document.getElementById('chartHospitalityType'), {
-        type: 'bar',
-        data: {
-          labels: ['Resort 5★', 'Bisnis', 'Vila Privat', 'Homestay'],
-          datasets: [{ data: [15, 35, 20, 30], backgroundColor: '#3b82f6', borderRadius: 4 }]
-        },
-        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-      });
-    }
+  <!-- Proteksi Akses Kode Sumber -->
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+      if (
+        event.key === 'F12' || 
+        (event.ctrlKey && event.shiftKey && event.key.toUpperCase() === 'I') || 
+        (event.ctrlKey && event.key.toUpperCase() === 'U') ||
+        (event.ctrlKey && event.shiftKey && event.key.toUpperCase() === 'C')
+      ) {
+        event.preventDefault();
+        alert("Akses dilindungi oleh M. Naufal Zamani © 2026. Dilarang menduplikasi kode sumber!");
+      }
+    });
   </script>
 </body>
 </html>
-
-<script>
-  // Mencegah klik kanan
-  document.addEventListener('contextmenu', event => event.preventDefault());
-
-  // Mencegah shortcut Inspect Element (F12, Ctrl+Shift+I, Ctrl+U)
-  document.addEventListener('keydown', event => {
-    if (
-      event.key === 'F12' || 
-      (event.ctrlKey && event.shiftKey && event.key.toUpperCase() === 'I') || 
-      (event.ctrlKey && event.key.toUpperCase() === 'U') ||
-      (event.ctrlKey && event.shiftKey && event.key.toUpperCase() === 'C')
-    ) {
-      event.preventDefault();
-      alert("Akses dilindungi oleh M. Naufal Zamani © 2026. Dilarang menduplikasi kode sumber!");
-    }
-  });
-</script>
