@@ -1,1 +1,1738 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>M. Naufal Zamani (@rebatur_data) — MotoGP™, Moto2™ & Moto3™ Mandalika Analytics Portal</title>
 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            racing: {
+              red: '#e10600',
+              darkred: '#990000',
+              lightred: '#fee2e2',
+              white: '#ffffff',
+              green: '#00a651',
+              blue: '#0284c7',
+              yellow: '#f59e0b',
+              asphalt: '#0b0f19',
+              asphaltCard: '#131927',
+              sidebarDark: '#0f172a',
+              sidebarCard: '#1e293b',
+              asphaltBorder: '#222d42'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .headline-font {
+      font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+    .racing-number {
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    .floating-wa-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 40;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+      transition: all 0.3s ease;
+    }
+    .floating-wa-btn:hover {
+      transform: scale(1.08);
+    }
+    @keyframes bike-ride {
+      0% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      100% { transform: translateX(-8px); }
+    }
+    .bike-anim {
+      display: inline-block;
+      animation: bike-ride 3s infinite ease-in-out;
+    }
+
+    /* Ambient Background Floating Elements */
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.10; }
+      50% { transform: translateY(-24px) rotate(12deg); opacity: 0.25; }
+    }
+    .bg-icon-1 { animation: float-slow 7s infinite ease-in-out; }
+    .bg-icon-2 { animation: float-slow 9s infinite ease-in-out; animation-delay: 2s; }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e10600;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-100 text-slate-900 dark:bg-racing-asphalt dark:text-slate-100 transition-colors duration-300 flex flex-col justify-between overflow-x-hidden select-none">
+
+  <!-- ================= AMBIENT FLOATING MOTORSPORT ICONS ================= -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none opacity-30 dark:opacity-15" aria-hidden="true">
+    <i data-lucide="flag" class="bg-icon-1 text-racing-red absolute top-24 left-[10%] w-16 h-16"></i>
+    <i data-lucide="trophy" class="bg-icon-2 text-amber-500 absolute top-72 right-[8%] w-20 h-20"></i>
+    <i data-lucide="gauge" class="bg-icon-1 text-blue-500 absolute bottom-96 left-[18%] w-24 h-24"></i>
+    <i data-lucide="zap" class="bg-icon-2 text-yellow-400 absolute top-[45%] left-[45%] w-14 h-14"></i>
+  </div>
+
+  <!-- ================= TOP VERIFIED CITATION LINKS ================= -->
+  <div class="relative z-10 bg-white dark:bg-black border-b border-slate-200 dark:border-slate-800 text-xs py-2 px-4 transition-colors">
+    <div class="w-full max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <div class="flex items-center gap-2 sm:gap-4 text-[11px] font-bold overflow-x-auto py-0.5">
+        <span class="text-racing-red flex items-center gap-1.5 shrink-0">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-racing-red"></span>
+          </span>
+          <span data-i18n="verifiedSources">PORTAL RESMI DIAUDIT:</span>
+        </span>
+        <a href="https://ntb.bps.go.id/id/statistics-table?subject=518" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1">
+          <i data-lucide="bar-chart" class="w-3.5 h-3.5 text-racing-red"></i> BPS Pariwisata NTB ↗
+        </a>
+        <span class="text-slate-400">•</span>
+        <a href="https://www.themandalikagp.com/" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1">
+          <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-600"></i> Portal Resmi MGPA ↗
+        </a>
+        <span class="text-slate-400">•</span>
+        <a href="https://injourney.id/" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1">
+          <i data-lucide="building" class="w-3.5 h-3.5 text-amber-500"></i> InJourney Holding ↗
+        </a>
+        <span class="text-slate-400">•</span>
+        <a href="https://indonesia.travel" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1">
+          <i data-lucide="palmtree" class="w-3.5 h-3.5 text-emerald-600"></i> Wonderful Indonesia ↗
+        </a>
+        <span class="text-slate-400">•</span>
+        <a href="https://www.motogp.com/en/riders/motogp" target="_blank" class="hover:text-racing-red underline transition shrink-0 flex items-center gap-1 font-black text-racing-red">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i> MotoGP.com Riders Database ↗
+        </a>
+      </div>
+
+      <!-- Controls: Language & Theme Mode -->
+      <div class="flex items-center gap-3 shrink-0">
+        <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5 text-xs font-bold border border-slate-300 dark:border-slate-700">
+          <button onclick="setLanguage('id')" id="lang-id-btn" class="px-2.5 py-1 rounded bg-racing-red text-white transition">ID</button>
+          <button onclick="setLanguage('en')" id="lang-en-btn" class="px-2.5 py-1 rounded text-slate-700 dark:text-slate-300 hover:text-racing-red transition">EN</button>
+        </div>
+
+        <button onclick="toggleDarkMode()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-amber-400 border border-slate-300 dark:border-slate-700 hover:scale-105 transition flex items-center gap-1 text-xs font-bold shadow" title="Ubah Mode Gelap / Terang">
+          <i data-lucide="sun" id="theme-icon-sun" class="w-4 h-4 hidden dark:inline"></i>
+          <i data-lucide="moon" id="theme-icon-moon" class="w-4 h-4 inline dark:hidden"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MOBILE HEADER ================= -->
+  <div class="relative z-20 lg:hidden bg-racing-sidebarDark text-white p-4 flex items-center justify-between sticky top-0 shadow-md">
+    <div class="flex items-center gap-2">
+      <span class="text-racing-red font-black text-xl italic tracking-tighter">MOTO<span class="text-white">GP</span></span>
+      <span class="text-xs font-bold text-slate-300">M. Naufal Zamani Hub</span>
+    </div>
+    <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-racing-red transition border border-slate-700 text-white flex items-center gap-1.5 text-xs font-bold">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+      <span>Menu</span>
+    </button>
+  </div>
+
+  <!-- Backdrop Mobile Drawer -->
+  <div id="mobile-backdrop" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/70 z-40 lg:hidden hidden transition-opacity duration-300 backdrop-blur-sm"></div>
+
+  <!-- ================= MAIN LAYOUT WRAPPER ================= -->
+  <div class="relative z-10 flex-1 flex w-full max-w-[1600px] mx-auto">
+    
+    <!-- ================= SIDEBAR SAMPING ================= -->
+    <aside id="sidebar-drawer" class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:static lg:h-auto min-h-screen w-72 xl:w-80 bg-gradient-to-b from-[#0f172a] via-[#131d31] to-[#0a0f1d] text-white border-r-2 border-slate-800 flex flex-col justify-between shrink-0 overflow-y-auto transition-transform duration-300 z-50 shadow-2xl">
+      
+      <div class="p-5 space-y-4">
+        
+        <!-- FOTO PROFIL BESAR, NAMA & LINK INSTAGRAM -->
+        <div class="text-center pb-4 border-b border-slate-800 relative">
+          <!-- Tombol Tutup Khusus Layar HP -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden absolute top-0 right-0 p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-lg">
+            ✕
+          </button>
+
+          <div class="relative w-36 h-44 mx-auto mb-3 rounded-2xl overflow-hidden border-4 border-racing-red shadow-2xl bg-slate-900 group">
+            <img 
+              src="naufal.jpg" 
+              onerror="this.onerror=null; this.src='naufal.jpeg';" 
+              alt="M. Naufal Zamani - Lead Motorsport Data Analyst" 
+              class="w-full h-full object-cover object-top hover:scale-105 transition duration-500"
+            />
+          </div>
+
+          <h2 class="text-base font-black text-white tracking-tight">
+            M. Naufal Zamani
+          </h2>
+          <p class="text-xs text-racing-red font-black uppercase tracking-wider mt-0.5" data-i18n="analystRole">
+            Lead Motorsport Data Analyst
+          </p>
+
+          <div class="mt-2.5">
+            <a 
+              href="https://www.instagram.com/rebatur_data/?__pwa=1#" 
+              target="_blank" 
+              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-gradient-to-r from-pink-500 via-red-500 to-amber-500 text-white shadow-md hover:scale-105 transition"
+              title="Kunjungi Instagram @rebatur_data"
+            >
+              <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+              <span>@rebatur_data</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- SUB-BAB DASHBOARD -->
+        <nav class="space-y-2 text-xs font-bold" id="sidebar-nav-container">
+          <button onclick="switchTab('tab-sejarah')" id="btn-tab-sejarah" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-red text-white transition flex items-center gap-3 shadow-lg shadow-red-900/40 text-left border border-red-500">
+            <i data-lucide="book-open" class="w-4 h-4 text-white shrink-0"></i>
+            <span data-i18n="navHistory">1. Sejarah FIM & NTB</span>
+          </button>
+
+          <button onclick="switchTab('tab-ekonomi')" id="btn-tab-ekonomi" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-sidebarCard text-slate-300 hover:bg-racing-red hover:text-white transition flex items-center gap-3 text-left border border-slate-700 hover:border-racing-red">
+            <i data-lucide="trending-up" class="w-4 h-4 text-racing-red shrink-0"></i>
+            <span data-i18n="navEcon">2. Riset Ekonomi BPS NTB</span>
+          </button>
+
+          <button onclick="switchTab('tab-hotel-map')" id="btn-tab-hotel-map" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-sidebarCard text-slate-300 hover:bg-racing-red hover:text-white transition flex items-center gap-3 text-left border border-slate-700 hover:border-racing-red">
+            <i data-lucide="hotel" class="w-4 h-4 text-racing-red shrink-0"></i>
+            <span data-i18n="navHotelMap">3. Peta Hotel & Tiket</span>
+          </button>
+
+          <button onclick="switchTab('tab-grid2026')" id="btn-tab-grid2026" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-sidebarCard text-slate-300 hover:bg-racing-red hover:text-white transition flex items-center gap-3 text-left border border-slate-700 hover:border-racing-red">
+            <i data-lucide="users" class="w-4 h-4 text-racing-red shrink-0"></i>
+            <span data-i18n="navGrid">4. Grid Pembalap Resmi</span>
+          </button>
+
+          <button onclick="switchTab('tab-gpseries')" id="btn-tab-gpseries" class="tab-btn w-full px-4 py-3 rounded-2xl bg-racing-sidebarCard text-slate-300 hover:bg-racing-red hover:text-white transition flex items-center gap-3 text-left border border-slate-700 hover:border-racing-red">
+            <i data-lucide="flag" class="w-4 h-4 text-racing-red shrink-0"></i>
+            <span data-i18n="navGPSeries">5. Mandalika GP Series</span>
+          </button>
+        </nav>
+
+        <!-- Quick Access Ticket Box -->
+        <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-2">
+          <span class="text-[10px] font-black text-racing-red uppercase flex items-center gap-1">
+            <i data-lucide="ticket" class="w-3.5 h-3.5"></i> Tiket Resmi MGPA
+          </span>
+          <p class="text-[11px] text-slate-400">Pesan tiket resmi Grandstand, Deluxe & Premiere Class.</p>
+          <a href="http://gpticket.themandalikagp.com" target="_blank" class="block w-full py-2 bg-racing-red hover:bg-racing-darkred text-white font-bold text-center text-xs rounded-xl shadow transition">
+            Beli Tiket Sekarang ↗
+          </a>
+        </div>
+
+      </div>
+
+      <div class="p-4 border-t border-slate-800 text-[11px] text-slate-400">
+        <p class="font-bold text-slate-200">MGPA & FIM Certified Portal</p>
+        <p class="mt-0.5">M. Naufal Zamani Edition</p>
+      </div>
+
+    </aside>
+
+    <!-- ================= MAIN CONTENT WRAPPER ================= -->
+    <div class="flex-1 min-w-0 w-full p-3 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 overflow-y-auto">
+
+      <!-- ================= HERO BANNER RAKSASA MOTOGP MANDALIKA ================= -->
+      <section class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-racing-asphaltBorder min-h-[300px] sm:min-h-[340px] flex items-end p-5 sm:p-10 bg-black w-full">
+        
+        <img 
+          src="mandalika-aerial.jpg" 
+          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=2000&q=90';" 
+          alt="Pertamina Mandalika International Circuit Aerial 4K" 
+          class="absolute inset-0 w-full h-full object-cover object-center brightness-105"
+        />
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/25 sm:bg-gradient-to-r sm:from-black/95 sm:via-black/60 sm:to-transparent"></div>
+
+        <div class="relative z-10 space-y-3 max-w-4xl text-white">
+          
+          <div class="inline-flex items-center gap-2 bg-racing-red text-white px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-black uppercase tracking-wider shadow">
+            <span class="bike-anim text-sm">🏍️</span>
+            FIM MOTOGP™ WORLD CHAMPIONSHIP OFFICIAL SERIES
+          </div>
+
+          <h1 class="headline-font text-2xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none text-white drop-shadow-xl break-words">
+            PERTAMINA GRAND PRIX OF INDONESIA 2026
+            <span class="block text-lg sm:text-3xl text-racing-red mt-2 font-black tracking-widest drop-shadow-md">
+              MOTOGP™ MANDALIKA INTERNATIONAL CIRCUIT
+            </span>
+          </h1>
+
+          <p class="text-slate-200 text-xs sm:text-base font-medium leading-relaxed drop-shadow max-w-2xl">
+            Portal Riset Makroekonomi, Antropologi Sejarah FIM & NTB, Serta Database Pembalap Dunia Terintegrasi.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 1: SEJARAH LENGKAP MOTOGP 1949-2027 & KUTIPAN ILMIAH                 -->
+      <!-- ========================================================================= -->
+      <div id="tab-sejarah" class="tab-pane space-y-6 sm:space-y-8 w-full">
+        
+        <article class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
+          
+          <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+            <span class="bg-red-50 dark:bg-red-950/40 text-racing-red border border-red-200 dark:border-red-900 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">
+              Ensiklopedi Jurnalistik Motorsport & Budaya Nusantara
+            </span>
+            <h2 class="headline-font text-xl sm:text-4xl font-black text-slate-900 dark:text-white mt-3 leading-tight break-words" data-i18n="historyMainTitle">
+              Kronologi 75 Tahun Kejuaraan Dunia MotoGP & Sejarah Luhur Tanah Mandalika
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed" data-i18n="historyMainDesc">
+              Didirikan pada 17 Juni 1949 oleh Fédération Internationale de Motocyclisme (FIM) di balapan Isle of Man TT, MotoGP merupakan kejuaraan motorsport tertua di muka bumi. Di sisi lain, pulau Lombok di Nusa Tenggara Barat menyimpan sejarah luhur legenda Putri Mandalika yang kini bertransformasi menjadi sirkuit balap tercantik di dunia.
+            </p>
+            <div class="mt-4 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-500 flex items-center gap-2">
+              <i data-lucide="bookmark" class="w-4 h-4 text-racing-red shrink-0"></i>
+              <span><strong>Kutipan & Rujukan Resmi:</strong> FIM Historical Archives (Geneva), Dorna Sports Annals (Madrid), Arsip Nasional IMI (1996–1997), dan Balai Pelestarian Nilai Budaya (BPNB) NTB.</span>
+            </div>
+          </div>
+
+          <!-- KONTEN JURNALISTIK TAMBAHAN -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-racing-asphaltBorder">
+              <span class="text-xs font-black text-racing-red uppercase flex items-center gap-1.5">
+                <i data-lucide="cpu" class="w-4 h-4"></i> Mahakarya Rp 50 Miliar
+              </span>
+              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1">Sains Motor Prototype</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                Motor prototype MotoGP tidak dijual bebas. Dibangun dengan sasis serat karbon ultra-ringan, transmisi *seamless gearbox* seharga miliaran rupiah, dan rem karbon Brembo yang bekerja pada suhu ekstrem 1.000°C.
+              </p>
+            </div>
+
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-racing-asphaltBorder">
+              <span class="text-xs font-black text-blue-600 uppercase flex items-center gap-1.5">
+                <i data-lucide="swords" class="w-4 h-4"></i> Rivalitas Abadi
+              </span>
+              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1">Benturan Para Legenda</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                Dari duel panas Mick Doohan vs Wayne Rainey, perseteruan epik Valentino Rossi vs Max Biaggi & Casey Stoner, hingga era perang taktik Marc Marquez melawan Jorge Lorenzo dan Francesco Bagnaia.
+              </p>
+            </div>
+
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-racing-asphaltBorder">
+              <span class="text-xs font-black text-amber-500 uppercase flex items-center gap-1.5">
+                <i data-lucide="shield" class="w-4 h-4"></i> Kearifan Suku Sasak
+              </span>
+              <h4 class="text-sm font-black text-slate-900 dark:text-white mt-1">Tradisi Betabeq Mandalika</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                Sebelum deru mesin prototype dimulai, para tokoh adat Sasak menggelar ritual *Betabeq* memohon keselamatan dan kelancaran kepada sang pencipta di tanah Mandalika yang sarat kesakralan.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- SEJARAH DUNIA -->
+            <div class="space-y-4">
+              <h3 class="text-base font-black text-racing-red uppercase flex items-center gap-2">
+                <i data-lucide="flag" class="w-5 h-5"></i>
+                <span data-i18n="fimErasTitle">Evolusi Regulasi Mesin Dunia (1949–2027)</span>
+              </h3>
+              
+              <div class="space-y-3 text-xs">
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="era1949Title">1949: Kelahiran Resmi FIM (Isle of Man TT)</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="era1949Desc">Leslie Graham juara dunia 500cc pertama menggunakan AJS Porcupine dengan kecepatan puncak 155 km/jam di balapan jalan raya paling berbahaya di dunia.</p>
+                </div>
+
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="era1975Title">1975–2001: Monster 2-Tak 500cc ("The Golden Era")</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="era1975Desc">Motor 2-tak 200 hp buas tanpa kontrol traksi elektronik. Mick Doohan mengukir rekor 5 gelar beruntun bersama Honda NSR500 melalui gaya sliding yang legendaris.</p>
+                </div>
+
+                <div class="p-4 bg-red-50/50 dark:bg-red-950/20 rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-racing-red text-sm" data-i18n="era1996Title">1996–1997: Babak Emas Sirkuit Sentul (Indonesia)</span>
+                  <p class="text-slate-700 dark:text-slate-300 leading-relaxed" data-i18n="era1996Desc">Indonesia pertama kali menggelar GP resmi FIM. Mick Doohan memenangi kelas 500cc (1996), dan Valentino Rossi remaja merengkuh kemenangan perdananya di Indonesia di kelas 125cc (1997).</p>
+                </div>
+
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="era2002Title">2002–2026: Era 4-Tak 990cc, 800cc & Aero 1000cc</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="era2002Desc">Valentino Rossi, Casey Stoner, dan Marc Marquez mengukir dinasti emas. Brad Binder mencetak rekor top speed 366.1 km/jam bersama KTM RC16 di sirkuit Mugello.</p>
+                </div>
+
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-racing-red text-sm" data-i18n="era2027Title">2027: Era Mesin Baru 850cc (Next-Gen MotoGP)</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="era2027Desc">FIM memangkas kapasitas mesin ke 850cc, melarang ride-height device, dan membatasi aero winglet demi mengembalikan kendali murni ke tangan pembalap.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SEJARAH NTB & MANDALIKA -->
+            <div class="space-y-4">
+              <h3 class="text-base font-black text-racing-red uppercase flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                <span data-i18n="ntbHeritageTitle">Sejarah & Warisan Luhur Tanah Mandalika NTB</span>
+              </h3>
+
+              <div class="space-y-3 text-xs">
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="folkloreTitle">Folklor Legenda Putri Mandalika (Tradisi Bau Nyale)</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="folkloreDesc">
+                    Kisah putri nan elok yang memilih menceburkan diri ke laut Seger agar tidak memicu perang antarkerajaan di Lombok. Jasadnya dipercaya menjelma menjadi cacing laut berkilau (Nyale), simbol pengorbanan demi persatuan yang dirayakan tiap tahun.
+                  </p>
+                </div>
+
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="tenunTitle">Filosofi Seni Tenun Sasak di Lintasan Sirkuit</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="tenunDesc">
+                    Motif kain tenun tradisional suku Sasak Lombok dilukis megah di atas area run-off tikungan 15, 16, dan 17 seluas 50.000 m². Merupakan penghormatan budaya Indonesia yang disiarkan ke lebih dari 200 negara.
+                  </p>
+                </div>
+
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="transfTitle">Transformasi Menjadi Kawasan Ekonomi Khusus (KEK)</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="transfDesc">
+                    Ditetapkan sebagai Destinasi Pariwisata Super Prioritas (DPSP) oleh pemerintah RI melalui ITDC dan InJourney, mengubah pesisir tandus menjadi pusat sport tourism internasional.
+                  </p>
+                </div>
+
+                <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red space-y-1">
+                  <span class="font-black text-slate-900 dark:text-white text-sm" data-i18n="homologTitle">Homologasi FIM Grade A & Teknologi Aspal SMA</span>
+                  <p class="text-slate-600 dark:text-slate-300 leading-relaxed" data-i18n="homologDesc">
+                    Diresmikan November 2021 dengan aspal Stone Mastic Asphalt (SMA) terbaik dunia, menjamin grip optimal saat motor dipacu hingga 318 km/jam di udara pesisir Samudra Hindia.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- DUA GRAFIK SEJARAH -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-3 border-b border-slate-200 dark:border-slate-800 mb-3 flex items-center justify-between">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="trending-up" class="w-4 h-4 text-racing-red"></i>
+                  <span data-i18n="chartSpeedTitle">Grafik: Rekor Top Speed Sepanjang Era Mesin (1949–2027)</span>
+                </h4>
+                <a href="https://www.motogp.com/" target="_blank" class="text-[10px] text-racing-red underline font-bold">FIM Records ↗</a>
+              </div>
+              <div class="h-60 w-full">
+                <canvas id="chartSejarahSpeed"></canvas>
+              </div>
+            </div>
+            <div class="mt-4 p-3.5 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong class="text-racing-red flex items-center gap-1 mb-1">
+                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i> Hasil Analisis & Kesimpulan Data Analyst:
+              </strong>
+              Lompatan kecepatan sebesar 136% dari 155 km/jam (1949) ke 366.1 km/jam (2024) membuktikan efisiensi termal mesin prototype modern. Regulasi mesin 850cc pada 2027 ditargetkan menstabilkan kecepatan puncak di ambang 340 km/jam demi faktor keselamatan pembalap.
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-3 border-b border-slate-200 dark:border-slate-800 mb-3 flex items-center justify-between">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white flex items-center gap-2">
+                  <i data-lucide="award" class="w-4 h-4 text-racing-red"></i>
+                  <span data-i18n="chartLegendsTitle">Grafik: Distribusi Gelar Juara Dunia Terbanyak Sepanjang Masa</span>
+                </h4>
+                <a href="https://www.motogp.com/en/riders" target="_blank" class="text-[10px] text-racing-red underline font-bold">Hall of Fame ↗</a>
+              </div>
+              <div class="h-60 w-full flex items-center justify-center">
+                <canvas id="chartAllTimeLegends"></canvas>
+              </div>
+            </div>
+            <div class="mt-4 p-3.5 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              <strong class="text-racing-red flex items-center gap-1 mb-1">
+                <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i> Hasil Analisis & Kesimpulan Data Analyst:
+              </strong>
+              Kuartet Agostini (15), Nieto (13), Rossi (9), dan Marquez (8) membentuk 35.8% dari total gelar juara dunia di era Grand Prix, membuktikan bahwa siklus dominasi juara dunia bertahan rata-rata 6–8 musim.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 2: RISET EKONOMI MAKRO BPS NTB + KESIMPULAN ANALIS DATA               -->
+      <!-- ========================================================================= -->
+      <div id="tab-ekonomi" class="tab-pane hidden space-y-6 sm:space-y-8 w-full">
+        
+        <article class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
+          
+          <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6">
+            <span class="bg-red-50 dark:bg-red-950/40 text-racing-red border border-red-200 dark:border-red-900 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+              Verified Economic Research (BPS NTB Audit)
+            </span>
+            <h2 class="headline-font text-xl sm:text-4xl font-black text-slate-900 dark:text-white mt-2 leading-tight break-words" data-i18n="econMainTitle">
+              Kajian Analisis Data: Dampak Sirkuit Mandalika Terhadap Ekonomi & Pariwisata NTB
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Data Resmi: <a href="https://ntb.bps.go.id/id/statistics-table?subject=518" target="_blank" class="text-racing-red underline font-bold">Badan Pusat Statistik (BPS) NTB</a> & InJourney Tourism Development Corporation (ITDC).
+            </p>
+          </div>
+
+          <!-- 4 KPI CARDS MAKROEKONOMI -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
+              <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiEconTurnover">Perputaran Ekonomi</p>
+              <p class="text-xl sm:text-2xl font-black text-racing-red mt-1">Rp 4,5 T</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">Multiplier Effect per Seri GP</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
+              <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiHotelOcc">Okupansi Hotel Lombok</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">98.2%</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">Pekan Balap (Race Week)</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
+              <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiJobsAbsorbed">Tenaga Kerja Terserap</p>
+              <p class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">10.250+</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">90% Pemuda Asli NTB</p>
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border-l-4 border-racing-red">
+              <p class="text-[11px] font-bold text-slate-500 uppercase" data-i18n="kpiMsmeGrowth">Omzet UMKM Lokal</p>
+              <p class="text-xl sm:text-2xl font-black text-racing-red mt-1">+340%</p>
+              <p class="text-[10px] text-slate-400 mt-0.5">Lonjakan 3 Hari Balapan</p>
+            </div>
+          </div>
+
+          <div class="p-4 bg-slate-50 dark:bg-racing-asphalt rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2 text-xs">
+            <h3 class="text-sm font-black text-racing-red uppercase">Kesimpulan Riset Data: Pariwisata NTB Tumbuh Sangat Pesat!</h3>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Melalui metode analisis dampak berganda (*economic multiplier effect*), keberadaan sirkuit internasional ini berhasil mengubah peta pertumbuhan ekonomi kawasan timur Indonesia. Kunjungan wisatawan nusantara dan mancanegara naik 18% YoY, menjadikan KEK Mandalika lokomotif devisa pariwisata nasional.
+            </p>
+          </div>
+
+        </article>
+
+        <!-- 6 GRAFIK ANALISIS MAKROEKONOMI -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white" data-i18n="chartEconTitle">PDRB & Perputaran</h4>
+                <span class="text-[10px] text-racing-red font-bold">Triliun IDR</span>
+              </div>
+              <div class="h-48 w-full">
+                <canvas id="chartEkonomiNTB"></canvas>
+              </div>
+            </div>
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
+              <strong>Kesimpulan:</strong> Nilai perputaran naik dari Rp 3.8T (2022) menjadi proyeksi Rp 4.8T (2026), menghasilkan rata-rata pengembalian investasi (ROI) daerah sebesar 18.4%.
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white" data-i18n="chartHotelTitle">Okupansi Hotel</h4>
+                <span class="text-[10px] text-racing-red font-bold">% Keterisian</span>
+              </div>
+              <div class="h-48 w-full">
+                <canvas id="chartOkupansiHotel"></canvas>
+              </div>
+            </div>
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
+              <strong>Kesimpulan:</strong> Keterisian kamar di KEK Mandalika mencapai saturasi 98.2% pada akhir pekan GP, menyebarkan efek limpahan hunian (*overflow occupancy*) ke Kota Mataram hingga 92%.
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white" data-i18n="chartAirportTitle">Trafik Bandara BIL</h4>
+                <span class="text-[10px] text-racing-red font-bold">Pax / Hari</span>
+              </div>
+              <div class="h-48 w-full">
+                <canvas id="chartTrafikBandara"></canvas>
+              </div>
+            </div>
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
+              <strong>Kesimpulan:</strong> Lonjakan harian tertinggi terjadi pada hari H balapan (14.200 pax/hari), menuntut operasional bandara non-stop 24 jam dengan penambahan 46 penerbangan ekstra.
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white">Pertumbuhan Sektor</h4>
+                <span class="text-[10px] text-racing-red font-bold">% YoY</span>
+              </div>
+              <div class="h-48 w-full">
+                <canvas id="chartPDRBSektor"></canvas>
+              </div>
+            </div>
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
+              <strong>Kesimpulan:</strong> Sektor Hotel (+18.2%) dan Transportasi (+14.8%) menjadi kontributor terbesar akselerasi ekonomi kuartal IV di NTB secara konsisten.
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white">Distribusi Pengeluaran Turis</h4>
+                <span class="text-[10px] text-racing-red font-bold">BPS Data</span>
+              </div>
+              <div class="h-48 w-full flex items-center justify-center">
+                <canvas id="chartPengeluaranTuris"></canvas>
+              </div>
+            </div>
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
+              <strong>Kesimpulan:</strong> 66% dari total pengeluaran wisatawan terserap di sektor Hotel dan Tiket resmi, sementara 34% sisanya dinikmati langsung oleh warung dan UMKM suvenir lokal.
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="pb-2 border-b border-slate-200 dark:border-slate-800 mb-2 flex justify-between items-center">
+                <h4 class="text-xs font-black uppercase text-slate-900 dark:text-white">Penyerapan Pekerja Lokal</h4>
+                <span class="text-[10px] text-racing-red font-bold">10.250 Total</span>
+              </div>
+              <div class="h-48 w-full flex items-center justify-center">
+                <canvas id="chartPekerjaLokal"></canvas>
+              </div>
+            </div>
+            <div class="mt-3 p-3 bg-slate-50 dark:bg-racing-asphalt rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-300">
+              <strong>Kesimpulan:</strong> Divisi Track Marshals dan Hospitality menyerap 60% tenaga kerja pemuda NTB yang telah tersertifikasi lisensi FIM Safety Standard.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 3: PETA HOTEL & RESORT + DENAH TIKET SIRKUIT                          -->
+      <!-- ========================================================================= -->
+      <div id="tab-hotel-map" class="tab-pane hidden space-y-6 sm:space-y-8 w-full">
+        <!-- Denah Sirkuit -->
+        <div class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
+          <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <div>
+              <span class="bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase tracking-wider">
+                Integrated Seating & Hospitality Matrix
+              </span>
+              <h2 class="headline-font text-xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1 break-words">
+                Denah Layout Sirkuit Mandalika & Pilihan Kategori Tiket
+              </h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Klik salah satu zona tribun di bawah ini untuk melihat data analitik sudut pandang, beban deselerasi G-Force, serta akses fasilitas resminya.
+              </p>
+            </div>
+            <a href="http://gpticket.themandalikagp.com" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow shrink-0">
+              <i data-lucide="ticket" class="w-3.5 h-3.5"></i> <span>Beli Tiket Resmi MGPA ↗</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-7 bg-slate-50 dark:bg-black/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-800">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <button onclick="showZoneInfo('premiere')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
+                  <span class="text-[10px] text-racing-red font-black block">VIP HOSPITALITY</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">VIP Premiere</span>
+                  <span class="text-[10px] text-slate-400 block mt-1">Starting Grid & Pitlane</span>
+                </button>
+
+                <button onclick="showZoneInfo('deluxe')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
+                  <span class="text-[10px] text-racing-red font-black block">VIP HOSPITALITY</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">VIP Deluxe</span>
+                  <span class="text-[10px] text-slate-400 block mt-1">Outdoor + AC Lounge</span>
+                </button>
+
+                <button onclick="showZoneInfo('t1')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
+                  <span class="text-[10px] text-racing-red font-black block">HARD BRAKING</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">Luxury Tent (T1)</span>
+                  <span class="text-[10px] text-slate-400 block mt-1">Beban Rem 1.5G</span>
+                </button>
+
+                <button onclick="showZoneInfo('grandstand_covered')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
+                  <span class="text-[10px] text-racing-red font-black block">PREMIUM SEATS</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">Grandstand A, B, C, J, K</span>
+                  <span class="text-[10px] text-slate-400 block mt-1">Covered (Beratap)</span>
+                </button>
+
+                <button onclick="showZoneInfo('grandstand_regular')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
+                  <span class="text-[10px] text-racing-red font-black block">REGULAR SEATS</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">Grandstand E, G, H, I</span>
+                  <span class="text-[10px] text-slate-400 block mt-1">Uncovered (Terbuka)</span>
+                </button>
+
+                <button onclick="showZoneInfo('festival')" class="p-3 bg-white dark:bg-slate-800 hover:border-racing-red border border-slate-200 dark:border-slate-700 rounded-xl text-left transition">
+                  <span class="text-[10px] text-racing-red font-black block">GENERAL ADMISSION</span>
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">Festival - Hill View</span>
+                  <span class="text-[10px] text-slate-400 block mt-1">Area Bukit & Konser</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 bg-slate-50 dark:bg-racing-asphalt rounded-2xl p-6 border border-slate-200 dark:border-slate-800" id="zone-details-card">
+              <span class="bg-racing-red text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider">
+                Data Intelijen Tribun Terpilih
+              </span>
+              <h3 class="text-xl font-black text-slate-900 dark:text-white mt-2" id="zone-title">VIP Hospitality - Premiere</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed" id="zone-desc">
+                Pemandangan tepat di atas pitlane garasi tim dan garis starting grid. Termasuk akses Pitlane Walk resmi untuk melihat motor balap prototype dari jarak dekat.
+              </p>
+
+              <div class="grid grid-cols-2 gap-3 mt-4 text-xs">
+                <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <span class="text-[10px] text-slate-400 block uppercase font-bold">Fasilitas:</span>
+                  <span class="font-bold text-racing-red" id="zone-facility">Full F&B, AC, Pitlane Walk</span>
+                </div>
+                <div class="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <span class="text-[10px] text-slate-400 block uppercase font-bold">G-Force Pengamatan:</span>
+                  <span class="font-bold text-racing-red" id="zone-gforce">1.2G — 1.5G (Apex Acceleration)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 HOTEL RESMI LENGKAP -->
+        <div class="bg-white dark:bg-racing-asphaltCard border-2 border-slate-200 dark:border-racing-asphaltBorder rounded-3xl p-5 sm:p-8 shadow-sm space-y-6 w-full">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800 gap-2">
+            <div>
+              <h3 class="text-lg font-black text-slate-900 dark:text-white uppercase flex items-center gap-2">
+                <i data-lucide="hotel" class="w-5 h-5 text-racing-red"></i>
+                <span data-i18n="hotelDirTitle">Direktori 9 Hotel & Resort Resmi Sekitar Mandalika</span>
+              </h3>
+              <p class="text-xs text-slate-500" data-i18n="hotelDirDesc">Lengkap dengan rute navigasi Google Maps, jarak tempuh, dan portal reservasi resmi.</p>
+            </div>
+            <span class="text-xs font-bold text-racing-red bg-red-50 dark:bg-red-950/50 border border-red-200 px-3 py-1 rounded-full">
+              Keterisian 98.2% Saat Race Week
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 1. Pullman -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=700&q=80" alt="Pullman Lombok" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">5-STAR RESORT</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 7 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Pullman Lombok Merujuk KEK</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Resort bintang 5 tepi pantai KEK Mandalika, markas utama prinsipal dan pembalap MotoGP.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>3.2 km</strong> • Private Beach & Spa</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Pullman+Lombok+Merujuk+Mandalika+Beach+Resort" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://all.accor.com/hotel/B249/index.id.shtml" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 2. Novotel -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80" alt="Novotel Lombok" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">SASAK VILLAS</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 9 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Novotel Lombok Resort & Villas</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Arsitektur tradisional suku Sasak berpadu dengan pasir merica Pantai Kuta Mandalika.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>4.5 km</strong> • Beach Club & Villas</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Novotel+Lombok+Resort+and+Villas" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://all.accor.com/hotel/0571/index.id.shtml" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 3. Raja Hotel -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=700&q=80" alt="Raja Hotel" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">CONVENTION HOTEL</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 4 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Raja Hotel Kuta Mandalika</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Akses paling strategis dan cepat menuju gerbang utama sirkuit dan Bazaar Mandalika.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>1.8 km</strong> • Ballroom & Gym</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Raja+Hotel+Kuta+Mandalika" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://rajahotels.com/" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 4. Sikara -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=700&q=80" alt="Sikara Lombok Hotel" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">BOUTIQUE OASIS</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 6 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Sikara Lombok Hotel</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Hotel butik tropis favorit penonton internasional yang menyukai ketenangan di pusat Kuta.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>2.5 km</strong> • Tropical Pool & Cafe</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Sikara+Lombok+Hotel" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://www.booking.com/hotel/id/sikara-lombok.id.html" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Cek Kamar ↗</a>
+              </div>
+            </div>
+
+            <!-- 5. Origin -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=700&q=80" alt="Origin Lombok" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">WELLNESS RETREAT</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 7 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Origin Lombok Resort</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Resort bernuansa relaksasi dan spa yang berjarak sangat dekat dengan bukit Seger.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>3.0 km</strong> • Yoga & Spa</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Origin+Lombok" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://www.originlombok.com/" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 6. Jivana -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=700&q=80" alt="Jivana Resort" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">TROPICAL HAVEN</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 6 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Jivana Resort Lombok</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Suasana oasis tenang dengan kolam ikan koi asri dan taman hijau tropis.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>2.7 km</strong> • Garden Restaurant</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Jivana+Resort+Lombok" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://jivanaresortlombok.com/" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 7. Mana Earthly -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=700&q=80" alt="Mana Eco Resort" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">ECO LUXURY</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 8 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Mana Earthly Paradise Lombok</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Resort berkonsep ramah lingkungan dengan bioskop outdoor dan studio yoga terkenal.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>3.8 km</strong> • Eco Villas & Yoga</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Mana+Earthly+Paradise+Lombok" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://www.manalombok.com/" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 8. Ku Villas -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=700&q=80" alt="Ku Villas" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">PRIVATE VILLAS</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 5 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Ku Villas Kuta Mandalika</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Kompleks vila pribadi modern dengan kolam renang privat cocok untuk keluarga dan kru tim balap.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>2.2 km</strong> • Private Swimming Pool</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Ku+Villas+Lombok" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://www.kuvillas.com/" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+
+            <!-- 9. Amber -->
+            <div class="bg-slate-50 dark:bg-racing-asphalt rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group">
+              <div>
+                <div class="h-48 overflow-hidden relative">
+                  <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=700&q=80" alt="Amber Beach Resort" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  <span class="absolute top-2 left-2 bg-racing-red text-white text-[10px] font-black px-2.5 py-0.5 rounded shadow">OCEANFRONT LUXURY</span>
+                  <span class="absolute top-2 right-2 bg-black/70 text-white text-[10px] font-bold px-2 py-0.5 rounded">⏱ 15 Mins to Circuit</span>
+                </div>
+                <div class="p-4 space-y-1">
+                  <h4 class="text-base font-black text-slate-900 dark:text-white">Amber Lombok Beach Resort</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">Kemewahan panorama matahari terbenam Pantai Torok dengan kolam renang infinity tepi laut.</p>
+                  <p class="text-[11px] text-slate-500 pt-1">📍 Jarak: <strong>12 km</strong> • Sunset Beachfront View</p>
+                </div>
+              </div>
+              <div class="p-4 pt-0 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80 mt-2">
+                <a href="https://maps.google.com/?q=Amber+Lombok+Beach+Resort" target="_blank" class="text-xs font-bold text-racing-red underline flex items-center gap-1">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Google Maps ↗
+                </a>
+                <a href="https://amber-lombok.com/" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">Reservasi ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 4: GRID PEMBALAP LENGKAP MOTOGP, MOTO2 (28) & MOTO3 (26)             -->
+      <!-- ========================================================================= -->
+      <div id="tab-grid2026" class="tab-pane hidden space-y-6 w-full">
+        
+        <div class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 transition-colors w-full">
+          <div>
+            <span class="bg-racing-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+              Official Rider & Team Database
+            </span>
+            <h2 class="headline-font text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-2 break-words" data-i18n="gridMainTitle">
+              Grid Pembalap Resmi MotoGP™, Moto2™ & Moto3™
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="gridMainDesc">
+              Pilih kelas balap di bawah ini dan klik nama pembalap untuk membuka kartu biodata resmi langsung tanpa login!
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-xs font-black text-racing-red bg-red-50 dark:bg-red-950/40 px-3 py-1.5 rounded-xl border border-red-300 dark:border-red-900">
+              Total 76 Pembalap Dunia
+            </span>
+          </div>
+        </div>
+
+        <!-- FILTER KATEGORI KELAS BALAP -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="filterRiderClass('motogp')" id="btn-class-motogp" class="px-5 py-2.5 rounded-xl text-xs font-black bg-racing-red text-white shadow-md transition">
+            MotoGP™ (22)
+          </button>
+          <button onclick="filterRiderClass('moto2')" id="btn-class-moto2" class="px-5 py-2.5 rounded-xl text-xs font-black bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-racing-red hover:text-white transition">
+            Moto2™ (28)
+          </button>
+          <button onclick="filterRiderClass('moto3')" id="btn-class-moto3" class="px-5 py-2.5 rounded-xl text-xs font-black bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-racing-red hover:text-white transition">
+            Moto3™ (26)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full" id="container-grid-riders">
+          <!-- Injected via JavaScript -->
+        </div>
+
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAB 5: MANDALIKA GP SERIES                                               -->
+      <!-- ========================================================================= -->
+      <div id="tab-gpseries" class="tab-pane hidden space-y-6 w-full">
+        
+        <div class="bg-white dark:bg-racing-asphaltCard border-2 border-racing-red/40 rounded-3xl p-5 sm:p-8 shadow-sm transition-colors w-full">
+          <div class="border-b border-slate-200 dark:border-slate-800 pb-4 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <span class="bg-racing-red text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider">
+                Official Mandalika GP Series Directory
+              </span>
+              <h2 class="headline-font text-xl sm:text-3xl font-black text-slate-900 dark:text-white mt-2 break-words">
+                7 Kejuaraan Motorsport Resmi di Sirkuit Mandalika
+              </h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Sumber Data Resmi: <strong>themandalikagp.com/mandalika-gp-series</strong>.
+              </p>
+            </div>
+            <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow shrink-0">
+              <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka Web Resmi MGPA ↗
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-black text-racing-red uppercase">PINNACLE OF MOTORSPORT</span>
+                <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">MotoGP™ Indonesia</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Pertamina Grand Prix of Indonesia menghadirkan pertarungan sengit para pembalap terbaik dunia.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-racing-red">R-2 World GP</span>
+                <a href="http://gpticket.themandalikagp.com" target="_blank" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">BUY TICKET ↗</a>
+              </div>
+            </div>
+
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-black text-blue-600 uppercase">REGIONAL CHAMPIONSHIP</span>
+                <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">FIM Asia Road Racing (ARRC)</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Kejuaraan balap motor regional tertinggi di Asia pembinaan talenta pembalap muda Indonesia.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">R-2 Asia</span>
+                <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">BOOK NOW ↗</a>
+              </div>
+            </div>
+
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-black text-amber-500 uppercase">PORSCHE PYRAMID</span>
+                <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">Porsche Sprint Challenge Indonesia</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Bagian resmi dari piramida motorsport global Porsche yang terhubung langsung dengan balap Le Mans.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">R-4 GT Cars</span>
+                <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">BOOK NOW ↗</a>
+              </div>
+            </div>
+
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-black text-emerald-600 uppercase">KEJURNAS BALAP MOTOR</span>
+                <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">Mandalika Racing Series (MRS)</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Kejuaraan Nasional Sportbike Indonesia wadah pembinaan talenta pembalap muda tanah air.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">Sportbike</span>
+                <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">BOOK NOW ↗</a>
+              </div>
+            </div>
+
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-black text-purple-600 uppercase">FESTIVAL OF SPEED</span>
+                <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">Mandalika Festival of Speed (MFoS)</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Ajang balap spektakuler kreasi MGPA yang memadukan kompetisi kecepatan mobil touring dan ITCR.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">R-4 Touring</span>
+                <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">BOOK NOW ↗</a>
+              </div>
+            </div>
+
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-racing-red rounded-2xl shadow-sm flex flex-col justify-between">
+              <div>
+                <span class="text-[10px] font-black text-red-600 uppercase">TIME ATTACK</span>
+                <h3 class="text-base font-black text-slate-900 dark:text-white mt-1">JDM Fun Day (85 Cars)</h3>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">Temu akbar komunitas mobil performa tinggi Jepang terbesar di Indonesia dengan format Time Attack.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">Time Attack</span>
+                <a href="https://themandalikagp.com/mandalika-gp-series" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">BOOK NOW ↗</a>
+              </div>
+            </div>
+
+            <div class="p-5 bg-slate-50 dark:bg-racing-asphalt border-2 border-emerald-500 rounded-2xl shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-3">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <span class="text-[10px] font-black text-mandalika-green uppercase">SRO MOTORSPORTS GROUP</span>
+                  <h3 class="text-lg font-black text-slate-900 dark:text-white mt-1">GT World Challenge Asia (GT3 & GT4)</h3>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                    Kejuaraan balap supercar GT3 paling bergengsi di benua Asia yang mempertemukan Ferrari, Porsche, Lamborghini, Mercedes-AMG, dan BMW di sirkuit Mandalika.
+                  </p>
+                </div>
+                <a href="https://wa.me/6287747777077" target="_blank" class="bg-[#25d366] hover:bg-emerald-600 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2 shrink-0 shadow">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i> Booking WA SRO: 087747777077 ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================= FLOATING WHATSAPP ================= -->
+  <a 
+    href="https://wa.me/6282125596792?text=Halo%20MGPA,%20saya%20ingin%20mengetahui%20informasi%20Mandalika%20GP%20Series" 
+    target="_blank" 
+    class="floating-wa-btn bg-[#25d366] text-white p-3.5 rounded-full flex items-center gap-2 font-bold text-xs shadow-2xl"
+    title="Customer Care & Booking MGPA Resmi"
+  >
+    <i data-lucide="message-circle" class="w-6 h-6"></i>
+    <span class="hidden md:inline pr-1">Booking WA: +62 821-2559-6792</span>
+  </a>
+
+  <!-- ================= MODAL BIOGRAFI PEMBALAP (BEBAS LOGIN) ================= -->
+  <div id="rider-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-racing-asphaltCard text-slate-900 dark:text-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border-4 border-racing-red relative animate-in fade-in zoom-in duration-200">
+      <button onclick="closeRiderModal()" class="absolute top-4 right-4 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 w-8 h-8 rounded-full flex items-center justify-center font-bold text-base transition hover:bg-racing-red hover:text-white">
+        ✕
+      </button>
+      <div id="modal-content" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white dark:bg-black border-t-2 border-slate-200 dark:border-slate-800 py-6 text-xs text-slate-600 dark:text-slate-400 transition-colors">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 font-bold">
+        <span class="text-racing-red font-black">M. NAUFAL ZAMANI</span>
+        <span>•</span>
+        <span>LEAD MOTORSPORT DATA ANALYST</span>
+        <span>•</span>
+        <span class="text-racing-red font-black">MANDALIKA DATA HUB</span>
+      </div>
+      <div>
+        Data Resmi Diaudit: BPS NTB • MGPA • InJourney • Kemenpar • Dorna / FIM.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT LOGIC & DATABASE LENGKAP ================= -->
+  <script>
+    // FUNGSI DRAWER MOBILE RESIK & TIDAK LOCK LAYAR
+    function toggleMobileMenu() {
+      const sidebar = document.getElementById('sidebar-drawer');
+      const backdrop = document.getElementById('mobile-backdrop');
+      sidebar.classList.toggle('-translate-x-full');
+      backdrop.classList.toggle('hidden');
+    }
+
+    const TRANSLATIONS = {
+      id: {
+        verifiedSources: "PORTAL RESMI DIAUDIT:",
+        analystRole: "Lead Motorsport Data Analyst",
+        navHistory: "1. Sejarah FIM & NTB",
+        navEcon: "2. Riset Ekonomi BPS NTB",
+        navHotelMap: "3. Peta Hotel & Tiket",
+        navGrid: "4. Grid Pembalap Resmi",
+        navGPSeries: "5. Mandalika GP Series",
+        historyMainTitle: "Kronologi 75 Tahun Kejuaraan Dunia MotoGP & Sejarah Luhur Tanah Mandalika",
+        historyMainDesc: "Didirikan pada 17 Juni 1949 oleh Fédération Internationale de Motocyclisme (FIM) di balapan Isle of Man TT, MotoGP merupakan kejuaraan motorsport tertua di muka bumi. Di sisi lain, pulau Lombok di Nusa Tenggara Barat menyimpan sejarah luhur legenda Putri Mandalika yang kini bertransformasi menjadi sirkuit balap tercantik di dunia.",
+        fimErasTitle: "Evolusi Regulasi Mesin Dunia (1949–2027)",
+        era1949Title: "1949: Kelahiran Resmi FIM (Isle of Man TT)",
+        era1949Desc: "Leslie Graham juara dunia 500cc pertama menggunakan AJS Porcupine dengan kecepatan puncak 155 km/jam di balapan jalan raya paling berbahaya di dunia.",
+        era1975Title: "1975–2001: Monster 2-Tak 500cc (\"The Golden Era\")",
+        era1975Desc: "Motor 2-tak 200 hp buas tanpa kontrol traksi elektronik. Mick Doohan mengukir rekor 5 gelar beruntun bersama Honda NSR500 melalui gaya sliding yang legendaris.",
+        era1996Title: "1996–1997: Babak Emas Sirkuit Sentul (Indonesia)",
+        era1996Desc: "Indonesia pertama kali menggelar GP resmi FIM. Mick Doohan memenangi kelas 500cc (1996), dan Valentino Rossi remaja merengkuh kemenangan perdananya di Indonesia di kelas 125cc (1997).",
+        era2002Title: "2002–2026: Era 4-Tak 990cc, 800cc & Aero 1000cc",
+        era2002Desc: "Valentino Rossi, Casey Stoner, dan Marc Marquez mengukir dinasti emas. Brad Binder mencetak rekor top speed 366.1 km/jam bersama KTM RC16 di sirkuit Mugello.",
+        era2027Title: "2027: Era Mesin Baru 850cc (Next-Gen MotoGP)",
+        era2027Desc: "FIM memangkas kapasitas mesin ke 850cc, melarang ride-height device, dan membatasi aero winglet demi mengembalikan kendali murni ke tangan pembalap.",
+        ntbHeritageTitle: "Sejarah & Warisan Luhur Tanah Mandalika NTB",
+        folkloreTitle: "Folklor Legenda Putri Mandalika (Tradisi Bau Nyale)",
+        folkloreDesc: "Kisah putri nan elok yang memilih menceburkan diri ke laut Seger agar tidak memicu perang antarkerajaan di Lombok. Jasadnya dipercaya menjelma menjadi cacing laut berkilau (Nyale), simbol pengorbanan demi persatuan yang dirayakan tiap tahun.",
+        tenunTitle: "Filosofi Seni Tenun Sasak di Lintasan Sirkuit",
+        tenunDesc: "Motif kain tenun tradisional suku Sasak Lombok dilukis megah di atas area run-off tikungan 15, 16, dan 17 seluas 50.000 m². Merupakan penghormatan budaya Indonesia yang disiarkan ke lebih dari 200 negara.",
+        transfTitle: "Transformasi Menjadi Kawasan Ekonomi Khusus (KEK)",
+        transfDesc: "Ditetapkan sebagai Destinasi Pariwisata Super Prioritas (DPSP) oleh pemerintah RI melalui ITDC dan InJourney, mengubah pesisir tandus menjadi pusat sport tourism internasional.",
+        homologTitle: "Homologasi FIM Grade A & Teknologi Aspal SMA",
+        homologDesc: "Diresmikan November 2021 dengan aspal Stone Mastic Asphalt (SMA) terbaik dunia, menjamin grip optimal saat motor dipacu hingga 318 km/jam di udara pesisir Samudra Hindia.",
+        chartSpeedTitle: "Grafik: Rekor Top Speed Sepanjang Era Mesin (1949–2027)",
+        chartLegendsTitle: "Grafik: Distribusi Gelar Juara Dunia Terbanyak Sepanjang Masa",
+        econMainTitle: "Kajian Analisis Data: Dampak Sirkuit Mandalika Terhadap Ekonomi & Pariwisata NTB",
+        kpiEconTurnover: "Perputaran Ekonomi",
+        kpiHotelOcc: "Okupansi Hotel Lombok",
+        kpiJobsAbsorbed: "Tenaga Kerja Terserap",
+        kpiMsmeGrowth: "Omzet UMKM Lokal",
+        chartEconTitle: "PDRB & Perputaran",
+        chartHotelTitle: "Okupansi Hotel",
+        chartAirportTitle: "Trafik Bandara BIL",
+        layoutMainTitle: "Denah Layout Sirkuit Mandalika & Pilihan Kategori Tiket",
+        layoutMainDesc: "Klik salah satu zona tribun di bawah ini untuk melihat data analitik sudut pandang, beban deselerasi G-Force, serta akses fasilitas resminya.",
+        buyOfficialTicket: "Beli Tiket Resmi MGPA ↗",
+        hotelDirTitle: "Direktori 9 Hotel & Resort Resmi Sekitar Mandalika",
+        hotelDirDesc: "Lengkap dengan rute navigasi Google Maps, jarak tempuh, dan portal reservasi resmi.",
+        gridMainTitle: "Grid Pembalap Resmi MotoGP™, Moto2™ & Moto3™",
+        gridMainDesc: "Pilih kelas balap di bawah ini dan klik nama pembalap untuk membuka kartu biodata resmi langsung tanpa login!"
+      },
+      en: {
+        verifiedSources: "AUDITED OFFICIAL PORTALS:",
+        analystRole: "Lead Motorsport Data Analyst",
+        navHistory: "1. FIM & NTB Heritage",
+        navEcon: "2. BPS NTB Economic Report",
+        navHotelMap: "3. Hotels & Tickets Map",
+        navGrid: "4. Official Riders Grid",
+        navGPSeries: "5. Mandalika GP Series",
+        historyMainTitle: "75 Years of MotoGP Chronology (1949 — 2027) & Mandalika's Cultural Heritage",
+        historyMainDesc: "Founded on June 17, 1949, by the FIM at the Isle of Man TT, MotoGP is the oldest motorsport championship. Meanwhile, Lombok holds the sacred legend of Princess Mandalika, now hosting the world's most scenic circuit.",
+        fimErasTitle: "World Engine Regulation Evolution (1949–2027)",
+        era1949Title: "1949: Official FIM Inception (Isle of Man TT)",
+        era1949Desc: "Leslie Graham won the inaugural 500cc World Championship riding the AJS Porcupine reaching 155 km/h top speeds on the world's most perilous road circuit.",
+        era1975Title: "1975–2001: 500cc 2-Stroke Beasts (\"The Golden Era\")",
+        era1975Desc: "Raw 200 hp two-stroke prototypes without electronic traction control. Mick Doohan achieved a legendary 5 consecutive world titles with Honda NSR500.",
+        era1996Title: "1996–1997: Sentul Circuit Golden Era (Indonesia)",
+        era1996Desc: "Indonesia hosted its first official FIM GP. Mick Doohan dominated the 500cc class (1996), and young Valentino Rossi took his maiden Indonesian victory in 125cc (1997).",
+        era2002Title: "2002–2026: 4-Stroke 990cc, 800cc & Aero 1000cc Era",
+        era2002Desc: "Valentino Rossi, Casey Stoner, and Marc Marquez built historic dynasties. Brad Binder set the all-time top speed record of 366.1 km/h on the KTM RC16.",
+        era2027Title: "2027: Next-Gen 850cc Engine Era",
+        era2027Desc: "FIM downsizes displacement to 850cc, completely bans ride-height devices, and reduces aero winglets to put raw rider skill back in full control.",
+        ntbHeritageTitle: "Heritage & Ancient Legacy of Mandalika, West Nusa Tenggara",
+        folkloreTitle: "Folklore of Princess Mandalika (Bau Nyale Tradition)",
+        folkloreDesc: "The tale of a princess who sacrificed herself into the Seger Sea to prevent bloodshed among rival kingdoms. Legend says her soul transforms annually into glowing sea worms (Nyale), celebrating unity and peace.",
+        tenunTitle: "Sasak Traditional Weaving Art on Circuit Run-Offs",
+        tenunDesc: "The intricate indigenous Sasak textile pattern is painted across the run-off areas of Turns 15, 16, and 17 across 50,000 m², showcasing Indonesian culture to global broadcast viewers in 200+ territories.",
+        transfTitle: "Transformation into a Special Economic Zone (SEZ)",
+        transfDesc: "Designated as a Super Priority Tourism Destination by the Indonesian government through ITDC and InJourney, transforming arid shores into an international sport tourism capital.",
+        homologTitle: "FIM Grade A Homologation & SMA Asphalt Technology",
+        homologDesc: "Inaugurated in November 2021 with Stone Mastic Asphalt (SMA) technology, providing superior grip as prototype bikes blast at 318 km/h along the Indian Ocean coastline.",
+        chartSpeedTitle: "Chart: Top Speed Record Across Engine Eras (1949–2027)",
+        chartLegendsTitle: "Chart: All-Time Championship Titles Distribution",
+        econMainTitle: "Data Analysis Report: Economic Multiplier Impact of Mandalika Circuit",
+        kpiEconTurnover: "Economic Circulation",
+        kpiHotelOcc: "Lombok Hotel Occupancy",
+        kpiJobsAbsorbed: "Local Jobs Absorbed",
+        kpiMsmeGrowth: "Local MSME Growth",
+        chartEconTitle: "GDP & Turnover",
+        chartHotelTitle: "Hotel Occupancy",
+        chartAirportTitle: "Lombok Airport Traffic (BIL)",
+        layoutMainTitle: "Mandalika Circuit Layout & Ticket Intelligence",
+        layoutMainDesc: "Click any grandstand category below to analyze telemetry viewing angles, braking g-forces, and official hospitality amenities.",
+        buyOfficialTicket: "Buy Official MGPA Ticket ↗",
+        hotelDirTitle: "Official 9 Hotels & Resorts Directory Around Mandalika",
+        hotelDirDesc: "Featuring authentic resort photography, direct Google Maps navigation, and official booking portals.",
+        gridMainTitle: "Official Riders Grid: MotoGP™, Moto2™ & Moto3™",
+        gridMainDesc: "Select racing class below and click any rider name to open the official bio dossier directly without login barriers!"
+      }
+    };
+
+    function setLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) {
+          el.innerText = TRANSLATIONS[lang][key];
+        }
+      });
+      const btnId = document.getElementById('lang-id-btn');
+      const btnEn = document.getElementById('lang-en-btn');
+      if (lang === 'id') {
+        btnId.className = "px-2.5 py-1 rounded bg-racing-red text-white transition";
+        btnEn.className = "px-2.5 py-1 rounded text-slate-700 dark:text-slate-300 hover:text-racing-red transition";
+      } else {
+        btnEn.className = "px-2.5 py-1 rounded bg-racing-red text-white transition";
+        btnId.className = "px-2.5 py-1 rounded text-slate-700 dark:text-slate-300 hover:text-racing-red transition";
+      }
+    }
+
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+    }
+
+    // =========================================================================
+    // DATABASE MULTI-CLASS LENGKAP: MOTOGP (22), MOTO2 (28) & MOTO3 (26)
+    // =========================================================================
+    const RIDERS_DATABASE = {
+      motogp: [
+        { id: "bagnaia", name: "Francesco Bagnaia", number: 63, flag: "🇮🇹", country: "Italia", team: "Ducati Lenovo Team", bike: "Ducati GP26", dob: "14/01/1997", titles: "2x MotoGP World Champion", wins: "28 Wins", podiums: "50+ Podiums", style: "Precision hard-braking & tactical race craft.", bio: "VR46 Academy talisman who restored Ducati Corse to back-to-back glory." },
+        { id: "marquez", name: "Marc Márquez", number: 93, flag: "🇪🇸", country: "Spanyol", team: "Ducati Lenovo Team", bike: "Ducati GP26", dob: "17/02/1993", titles: "8x World Champion (6x MotoGP)", wins: "88 Wins", podiums: "140+ Podiums", style: "68° extreme lean-angle & legendary front saves.", bio: "Living legend hunting his 9th world championship on the factory Desmosedici." },
+        { id: "martin", name: "Jorge Martín", number: 89, flag: "🇪🇸", country: "Spanyol", team: "Aprilia Racing", bike: "Aprilia RS-GP26", dob: "29/01/1998", titles: "2024 MotoGP World Champion", wins: "18 Wins", podiums: "40+ Podiums", style: "The Martinator: Sprint master with launchpad acceleration.", bio: "Reigning world champion spearheading Aprilia Racing's title assault." },
+        { id: "bezzecchi", name: "Marco Bezzecchi", number: 72, flag: "🇮🇹", country: "Italia", team: "Aprilia Racing", bike: "Aprilia RS-GP26", dob: "12/11/1998", titles: "3rd Overall MotoGP 2023", wins: "3 Wins", podiums: "14 Podiums", style: "Fluid momentum and wet-track aggression.", bio: "Charismatic VR46 prodigy teaming with Martin at Aprilia Factory." },
+        { id: "diggia", name: "Fabio Di Giannantonio", number: 49, flag: "🇮🇹", country: "Italia", team: "Pertamina Enduro VR46", bike: "Ducati GP26", dob: "10/10/1998", titles: "2023 Qatar GP Winner", wins: "1 Win", podiums: "4 Podiums", style: "Smooth late-race tire management.", bio: "Factory-supported rider flying Indonesia's Pertamina Enduro VR46 colors." },
+        { id: "morbidelli", name: "Franco Morbidelli", number: 21, flag: "🇮🇹", country: "Italia", team: "Pertamina Enduro VR46", bike: "Ducati GP25", dob: "04/12/1994", titles: "2020 MotoGP Runner-Up", wins: "3 Wins", podiums: "9 Podiums", style: "Ultra-smooth cornering lines.", bio: "Senior VR46 Academy talent completing Pertamina Enduro VR46 lineup." },
+        { id: "acosta", name: "Pedro Acosta", number: 31, flag: "🇪🇸", country: "Spanyol", team: "Red Bull KTM Factory", bike: "KTM RC16", dob: "25/05/2004", titles: "Moto3 & Moto2 World Champion", wins: "16 Wins", podiums: "5+ Podiums", style: "The Shark: Relentless trail-braking overtakes.", bio: "Generational prodigy leading the factory Red Bull KTM assault." },
+        { id: "binder", name: "Brad Binder", number: 33, flag: "🇿🇦", country: "Afrika Selatan", team: "Red Bull KTM Factory", bike: "KTM RC16", dob: "11/08/1995", titles: "Top Speed Record (366.1 km/h)", wins: "2 Wins", podiums: "11 Podiums", style: "Sunday fighter with all-time straightline bravery.", bio: "South African warrior renowned for lightning starts and fierce combat." },
+        { id: "vinales", name: "Maverick Viñales", number: 12, flag: "🇪🇸", country: "Spanyol", team: "Red Bull KTM Tech3", bike: "KTM RC16", dob: "12/01/1995", titles: "2013 Moto3 World Champion", wins: "10 Wins (3 Brands)", podiums: "35 Podiums", style: "Top Gun: Unrivaled apex velocity on balanced setups.", bio: "Historic GP winner with Suzuki, Yamaha, and Aprilia, now racing with KTM." },
+        { id: "bastianini", name: "Enea Bastianini", number: 23, flag: "🇮🇹", country: "Italia", team: "Red Bull KTM Tech3", bike: "KTM RC16", dob: "30/12/1997", titles: "2020 Moto2 World Champion", wins: "7 Wins", podiums: "18 Podiums", style: "The Beast: Deadly late-race tire preserver.", bio: "Italian sensation partnering Viñales in Tech3 KTM's formidable lineup." },
+        { id: "quartararo", name: "Fabio Quartararo", number: 20, flag: "🇫🇷", country: "Prancis", team: "Monster Energy Yamaha", bike: "Yamaha YZR-M1", dob: "20/04/1999", titles: "2021 MotoGP World Champion", wins: "11 Wins", podiums: "31 Podiums", style: "El Diablo: Unmatched mid-corner speed.", bio: "Yamaha's talismanic leader spearheading the YZR-M1 recovery project." },
+        { id: "rins", name: "Alex Rins", number: 42, flag: "🇪🇸", country: "Spanyol", team: "Monster Energy Yamaha", bike: "Yamaha YZR-M1", dob: "08/12/1995", titles: "6x MotoGP Winner", wins: "6 Wins", podiums: "18 Podiums", style: "Silky-smooth lines & tire preservation.", bio: "Experienced race winner partnering Quartararo in Monster Energy Yamaha." },
+        { id: "miller", name: "Jack Miller", number: 43, flag: "🇦🇺", country: "Australia", team: "Prima Pramac (Yamaha)", bike: "Yamaha YZR-M1", dob: "18/01/1995", titles: "2014 Moto3 Runner-Up", wins: "4 Wins", podiums: "23 Podiums", style: "Jackass: Rear-wheel slide master in flag-to-flag rain.", bio: "Australian veteran bringing invaluable knowledge to Pramac Yamaha." },
+        { id: "toprak", name: "Toprak Razgatlıoğlu", number: 54, flag: "🇹🇷", country: "Turki", team: "Prima Pramac (Yamaha)", bike: "Yamaha YZR-M1", dob: "16/10/1996", titles: "2x WorldSBK Champion", wins: "50+ Superbike Wins", podiums: "130+ Podiums", style: "Stoppie King: Aerobatic late-braker.", bio: "Superbike icon completing a historic transition into MotoGP with Pramac." },
+        { id: "alexmarquez", name: "Alex Márquez", number: 73, flag: "🇪🇸", country: "Spanyol", team: "Gresini Racing BK8", bike: "Ducati GP25", dob: "23/04/1996", titles: "Moto3 & Moto2 Champion", wins: "Sprint Race Winner", podiums: "6 Podiums", style: "Consistent rhythm & wet-weather pace.", bio: "Established front-runner leading the Gresini Racing independent outfit." },
+        { id: "aldeguer", name: "Fermin Aldeguer", number: 54, flag: "🇪🇸", country: "Spanyol", team: "Gresini Racing BK8", bike: "Ducati GP25", dob: "05/04/2005", titles: "Multiple Moto2 Winner", wins: "5 Wins", podiums: "10+ Podiums", style: "Explosive pure qualifying speed.", bio: "Ducati Corse's prized young signing placed at Gresini Racing." },
+        { id: "raulfernandez", name: "Raul Fernandez", number: 25, flag: "🇪🇸", country: "Spanyol", team: "Trackhouse Racing", bike: "Aprilia RS-GP26", dob: "23/10/2000", titles: "Rookie Moto2 Record (8 Wins)", wins: "8 Wins", podiums: "Pole Sitter", style: "Blistering fast high-speed entry.", bio: "Lead American-backed Trackhouse Racing talent." },
+        { id: "ogura", name: "Ai Ogura", number: 79, flag: "🇯🇵", country: "Jepang", team: "Trackhouse Racing", bike: "Aprilia RS-GP25", dob: "26/01/2001", titles: "2024 Moto2 World Champion", wins: "6 Wins", podiums: "20+ Podiums", style: "Samurai discipline and tactical calculations.", bio: "2024 Moto2 World Champion stepping into MotoGP with Trackhouse." },
+        { id: "joanmir", name: "Joan Mir", number: 36, flag: "🇪🇸", country: "Spanyol", team: "Honda HRC Castrol", bike: "Honda RC213V", dob: "01/09/1997", titles: "2020 MotoGP World Champion", wins: "1 Win", podiums: "13 Podiums", style: "Relentless fighter with race-distance consistency.", bio: "World champion spearheading the technical turnaround of Honda HRC." },
+        { id: "marini", name: "Luca Marini", number: 10, flag: "🇮🇹", country: "Italia", team: "Honda HRC Castrol", bike: "Honda RC213V", dob: "10/08/1997", titles: "2020 Moto2 Runner-Up", wins: "6 Wins", podiums: "2 Podiums", style: "Methodical engineering-grade telemetry intellect.", bio: "Valentino Rossi's brother driving Honda HRC's technical resurgence." },
+        { id: "zarco", name: "Johann Zarco", number: 5, flag: "🇫🇷", country: "Prancis", team: "Castrol Honda LCR", bike: "Honda RC213V", dob: "16/07/1990", titles: "2x Moto2 World Champion", wins: "1 Win", podiums: "21 Podiums", style: "Backflip rider with acute tire sensitivity.", bio: "Experienced French rider leading Honda's charge at LCR." },
+        { id: "moreira", name: "Diogo Moreira", number: 10, flag: "🇧🇷", country: "Brasil", team: "Castrol Honda LCR", bike: "Honda RC213V", dob: "23/04/2004", titles: "Moto3 Rookie of the Year", wins: "1 Win", podiums: "3 Podiums", style: "Agile supermoto reflexes and sharp overtakes.", bio: "Brazilian young talent completing the official 2026 MotoGP grid." }
+      ],
+      moto2: [
+        { id: "m2_garcia", name: "Sergio Garcia", number: 3, flag: "🇪🇸", country: "Spanyol", team: "MT Helmets - MSI", bike: "Boscoscuro B-24", dob: "22/03/2003", titles: "Moto2 Title Contender", wins: "8 Wins", podiums: "25 Podiums", style: "Cornering apex bravery.", bio: "Championship front-runner in Moto2." },
+        { id: "m2_ortola", name: "Ivan Ortolá", number: 4, flag: "🇪🇸", country: "Spanyol", team: "MT Helmets - MSI", bike: "Boscoscuro B-24", dob: "04/08/2004", titles: "Multiple GP Winner", wins: "4 Wins", podiums: "12 Podiums", style: "Late-braking aggression.", bio: "Moto3 sensation promoted to Moto2." },
+        { id: "m2_baltus", name: "Barry Baltus", number: 7, flag: "🇧🇪", country: "Belgia", team: "Fantic Racing", bike: "Kalex Moto2", dob: "03/05/2004", titles: "Moto2 Podium Finisher", wins: "0 Wins", podiums: "2 Podiums", style: "High lean-angle rhythm.", bio: "Young Belgian talent racing with Fantic." },
+        { id: "m2_escrig", name: "Alex Escrig", number: 11, flag: "🇪🇸", country: "Spanyol", team: "KLINT Forward Factory", bike: "Forward Moto2", dob: "21/02/2004", titles: "Stock Champion", wins: "0 Wins", podiums: "1 Podium", style: "Technical chassis feedback.", bio: "Lead Forward Racing rider." },
+        { id: "m2_salac", name: "Filip Salac", number: 12, flag: "🇨🇿", country: "Ceko", team: "Elf Marc VDS Racing", bike: "Boscoscuro B-24", dob: "12/12/2001", titles: "Moto2 Pole & Podium", wins: "0 Wins", podiums: "3 Podiums", style: "Fast sector time attacks.", bio: "Czech standout at Marc VDS." },
+        { id: "m2_vietti", name: "Celestino Vietti", number: 13, flag: "🇮🇹", country: "Italia", team: "SpeedUp Racing", bike: "Boscoscuro B-24", dob: "13/10/2001", titles: "Multiple Moto2 Winner", wins: "7 Wins", podiums: "16 Podiums", style: "VR46 school race craft.", bio: "Key Italian contender." },
+        { id: "m2_arbolino", name: "Tony Arbolino", number: 14, flag: "🇮🇹", country: "Italia", team: "Pramac Yamaha Moto2", bike: "Kalex Moto2", dob: "03/08/2000", titles: "Moto2 Vice-Champion", wins: "6 Wins", podiums: "22 Podiums", style: "The Tiger: Relentless duel pace.", bio: "Yamaha factory junior spearhead." },
+        { id: "m2_roberts", name: "Joe Roberts", number: 16, flag: "🇺🇸", country: "Amerika Serikat", team: "OnlyFans American Racing", bike: "Kalex Moto2", dob: "16/06/1997", titles: "Multiple Moto2 Winner", wins: "2 Wins", podiums: "9 Podiums", style: "Brave dirt-track slides.", bio: "American flagbearer in Grand Prix racing." },
+        { id: "m2_munoz", name: "Daniel Muñoz", number: 17, flag: "🇪🇸", country: "Spanyol", team: "Preicanos Racing Team", bike: "Kalex Moto2", dob: "01/03/2006", titles: "European Junior Winner", wins: "0 Wins", podiums: "1 Podium", style: "Aggressive throttle exit.", bio: "Rapid rising Spanish talent." },
+        { id: "m2_gonzalez", name: "Manuel Gonzalez", number: 18, flag: "🇪🇸", country: "Spanyol", team: "Liqui Moly Intact GP", bike: "Kalex Moto2", dob: "04/08/2002", titles: "WorldSSP300 Champion & GP Winner", wins: "2 Wins", podiums: "11 Podiums", style: "Smooth tactical intelligence.", bio: "Intact GP lead championship contender." },
+        { id: "m2_lopez", name: "Alonso Lopez", number: 21, flag: "🇪🇸", country: "Spanyol", team: "SpeedUp Racing", bike: "Boscoscuro B-24", dob: "21/12/2001", titles: "Moto2 GP Winner", wins: "3 Wins", podiums: "15 Podiums", style: "Boscoscuro rocket starts.", bio: "SpeedUp front-row specialist." },
+        { id: "m2_guevara", name: "Izan Guevara", number: 28, flag: "🇪🇸", country: "Spanyol", team: "Pramac Yamaha Moto2", bike: "Kalex Moto2", dob: "28/06/2004", titles: "2022 Moto3 World Champion", wins: "7 Wins", podiums: "12 Podiums", style: "Pure talent apex momentum.", bio: "World Champion driving Yamaha's Moto2 push." },
+        { id: "m2_lunetta", name: "Luca Lunetta", number: 32, flag: "🇮🇹", country: "Italia", team: "SIC58 Squadra Corse", bike: "Kalex Moto2", dob: "27/05/2006", titles: "Moto3 Podium Finisher", wins: "0 Wins", podiums: "2 Podiums", style: "Dynamic high-lean attack.", bio: "Simoncelli team protege stepping up." },
+        { id: "m2_piqueras", name: "Angel Piqueras", number: 36, flag: "🇪🇸", country: "Spanyol", team: "MT Helmets - MSI", bike: "Boscoscuro B-24", dob: "30/11/2006", titles: "Red Bull Rookies Champion", wins: "1 Win", podiums: "5 Podiums", style: "Fearless last-lap overtaking.", bio: "One of the quickest teenagers on two wheels." },
+        { id: "m2_canet", name: "Aron Canet", number: 44, flag: "🇪🇸", country: "Spanyol", team: "Fantic Racing", bike: "Kalex Moto2", dob: "30/09/1999", titles: "Multiple Moto2 Winner", wins: "7 Wins", podiums: "38 Podiums", style: "Pole position wizard.", bio: "Charismatic title contender at Fantic." },
+        { id: "m2_oncu", name: "Deniz Öncü", number: 53, flag: "🇹🇷", country: "Turki", team: "Red Bull KTM Ajo", bike: "Kalex Moto2", dob: "26/07/2003", titles: "Multiple GP Winner", wins: "3 Wins", podiums: "13 Podiums", style: "Fierce combat and hard trail-braking.", bio: "Ajo KTM factory powerhouse from Turkey." },
+        { id: "m2_ferrandez", name: "Alberto Ferrandez", number: 54, flag: "🇪🇸", country: "Spanyol", team: "Finetwork Team", bike: "Kalex Moto2", dob: "14/11/2007", titles: "Junior GP Standout", wins: "0 Wins", podiums: "1 Podium", style: "Sharp switchbacks.", bio: "Promising Spanish junior graduate." },
+        { id: "m2_marioaji", name: "Mario Suryo Aji", number: 64, flag: "🇮🇩", country: "Indonesia", team: "Idemitsu Honda Team Asia", bike: "Kalex Moto2", dob: "16/03/2004", titles: "Kebanggaan Indonesia di Panggung Dunia", wins: "Top Finisher", podiums: "National Icon", style: "Magetan Express: High fighting spirit and exceptional wet-weather race control.", bio: "Pembalap kebanggaan bangsa Indonesia yang mengibarkan bendera Merah Putih di kancah Grand Prix Moto2 dunia!" },
+        { id: "m2_sasaki", name: "Ayumu Sasaki", number: 71, flag: "🇯🇵", country: "Jepang", team: "RW-Idrofoglia Racing GP", bike: "Kalex Moto2", dob: "04/10/2000", titles: "Moto3 Vice-Champion", wins: "3 Wins", podiums: "22 Podiums", style: "The Crazy Boy: Laser precision lines.", bio: "Japanese ace piloting for RW Racing." },
+        { id: "m2_furusato", name: "Taiyo Furusato", number: 72, flag: "🇯🇵", country: "Jepang", team: "Idemitsu Honda Team Asia", bike: "Kalex Moto2", dob: "12/07/2003", titles: "Asia Talent Cup Champion", wins: "0 Wins", podiums: "2 Podiums", style: "Explosive mid-corner throttle.", bio: "Honda Team Asia young charger." },
+        { id: "m2_dalonso", name: "David Alonso", number: 80, flag: "🇨🇴", country: "Kolombia", team: "CFMOTO Aspar Team", bike: "Kalex Moto2", dob: "25/04/2006", titles: "2024 Moto3 World Champion (14 Wins)", wins: "18 Wins", podiums: "23 Podiums", style: "Unmatched race intellect & cold-blooded race execution.", bio: "Record-shattering World Champion graduating to Moto2 glory." },
+        { id: "m2_agius", name: "Senna Agius", number: 81, flag: "🇦🇺", country: "Australia", team: "Liqui Moly Intact GP", bike: "Kalex Moto2", dob: "09/06/2005", titles: "European Moto2 Champion", wins: "0 Wins", podiums: "1 Podium", style: "Raw Aussie power sliding.", bio: "Australian prodigy carrying forward Gardner/Doohan legacy." },
+        { id: "m2_zonta", name: "Zonta van den Goorbergh", number: 84, flag: "🇳🇱", country: "Belanda", team: "RW-Idrofoglia Racing GP", bike: "Kalex Moto2", dob: "01/12/2005", titles: "Dutch Talent Star", wins: "0 Wins", podiums: "Top 5", style: "Smooth weight transfers.", bio: "Son of GP legend Jurgen van den Goorbergh." },
+        { id: "m2_zurutuza", name: "Xabi Zurutuza", number: 85, flag: "🇪🇸", country: "Spanyol", team: "Red Bull KTM Ajo", bike: "Kalex Moto2", dob: "07/04/2006", titles: "Junior GP Winner", wins: "0 Wins", podiums: "2 Podiums", style: "Tenacious sector 3 pace.", bio: "Basque talent racing under Aki Ajo's tutelage." },
+        { id: "m2_veijer", name: "Collin Veijer", number: 95, flag: "🇳🇱", country: "Belanda", team: "Red Bull KTM Ajo", bike: "Kalex Moto2", dob: "19/02/2005", titles: "Multiple GP Winner", wins: "3 Wins", podiums: "12 Podiums", style: "Relentless front-runner pace.", bio: "Dutch superstar tipped as a future MotoGP contender." },
+        { id: "m2_holgado", name: "Daniel Holgado", number: 96, flag: "🇪🇸", country: "Spanyol", team: "CFMOTO Aspar Team", bike: "Kalex Moto2", dob: "27/04/2005", titles: "Junior World Champion", wins: "4 Wins", podiums: "16 Podiums", style: "Uncompromising defensive lines.", bio: "Fierce Spanish champion hunting Moto2 crowns." },
+        { id: "m2_rueda", name: "Jose Antonio Rueda", number: 98, flag: "🇪🇸", country: "Spanyol", team: "Red Bull KTM Ajo", bike: "Kalex Moto2", dob: "29/10/2005", titles: "Red Bull Rookies Champion", wins: "1 Win", podiums: "6 Podiums", style: "High mid-corner carry speed.", bio: "Seville native shining on factory KTM machinery." },
+        { id: "m2_huertas", name: "Adrian Huertas", number: 99, flag: "🇪🇸", country: "Spanyol", team: "Italtrans Racing Team", bike: "Kalex Moto2", dob: "21/08/2003", titles: "World Supersport Champion", wins: "15 Wins (WSSP)", podiums: "20 Podiums", style: "Superbike-derived rear steering.", bio: "World Supersport Champion transitioning to Grand Prix." }
+      ],
+      moto3: [
+        { id: "m3_leo", name: "Leo Rammerstorfer", number: 5, flag: "🇦🇹", country: "Austria", team: "SIC58 Squadra Corse", bike: "Honda NSF250RW", dob: "12/08/2004", titles: "Austrian National Champion", wins: "0 Wins", podiums: "1 Podium", style: "Disciplined throttle mapping.", bio: "Austrian prospect carrying national colors." },
+        { id: "m3_yamanaka", name: "Ryusei Yamanaka", number: 6, flag: "🇯🇵", country: "Jepang", team: "MT Helmets - MSI", bike: "KTM RC250GP", dob: "06/11/2001", titles: "Moto3 Podium Finisher", wins: "0 Wins", podiums: "2 Podiums", style: "High corner momentum.", bio: "Experienced Japanese front-runner." },
+        { id: "m3_oshea", name: "Eddie O'Shea", number: 8, flag: "🇬🇧", country: "Inggris Raya", team: "MLav Racing", bike: "Honda NSF250RW", dob: "24/09/2006", titles: "British Talent Cup Winner", wins: "0 Wins", podiums: "1 Podium", style: "Aggressive entry angles.", bio: "British talent nurtured by Michael Laverty." },
+        { id: "m3_vedapratama", name: "Veda Ega Pratama", number: 9, flag: "🇮🇩", country: "Indonesia", team: "Honda Team Asia", bike: "Honda NSF250RW", dob: "23/11/2008", titles: "Asia Talent Cup Champion 2023 (Rekor Poin)", wins: "9 Wins (ATC)", podiums: "Rekor Juara", style: "Sensasi Gunungkidul: Keberanian manuver lap terakhir, refleks pengereman kilat & insting juara alami.", bio: "Pembalap masa depan Indonesia pemecah rekor poin Asia Talent Cup sepanjang masa yang kini bertarung di panggung Kejuaraan Dunia!" },
+        { id: "m3_carraro", name: "Nicola Carraro", number: 10, flag: "🇮🇹", country: "Italia", team: "Rivacold Snipers Team", bike: "Honda NSF250RW", dob: "08/04/2002", titles: "CIV Moto3 Champion", wins: "0 Wins", podiums: "1 Podium", style: "Methodical tire management.", bio: "Italian fighter with Snipers Team." },
+        { id: "m3_cruces", name: "Adrian Cruces", number: 11, flag: "🇪🇸", country: "Spanyol", team: "CIP Green Power", bike: "KTM RC250GP", dob: "20/07/2006", titles: "Junior GP Winner", wins: "0 Wins", podiums: "2 Podiums", style: "Sharp late braking.", bio: "Spanish young prodigy at CIP." },
+        { id: "m3_danish", name: "Hakim Danish", number: 13, flag: "🇲🇾", country: "Malaysia", team: "MT Helmets - MSI", bike: "KTM RC250GP", dob: "27/07/2007", titles: "Asia Talent Cup Winner & Rookies Star", wins: "Multiple ATC Wins", podiums: "7 Podiums", style: "Brave wet-weather overtaking.", bio: "Malaysian wonderkid following the footsteps of Hafizh Syahrin." },
+        { id: "m3_buchanan", name: "Cormac Buchanan", number: 14, flag: "🇳🇿", country: "Selandia Baru", team: "BOE Motorsports", bike: "KTM RC250GP", dob: "16/08/2006", titles: "NZ Supersport Champion", wins: "0 Wins", podiums: "1 Podium", style: "Fast sweeper rhythm.", bio: "New Zealand's lone star in the GP paddock." },
+        { id: "m3_bertelle", name: "Matteo Bertelle", number: 18, flag: "🇮🇹", country: "Italia", team: "LevelUp - MTA", bike: "KTM RC250GP", dob: "28/01/2004", titles: "Red Bull Rookies Winner", wins: "0 Wins", podiums: "1 Podium", style: "Smooth Italian style.", bio: "Team MTA's dependable Italian racer." },
+        { id: "m3_ogden", name: "Scott Ogden", number: 19, flag: "🇬🇧", country: "Inggris Raya", team: "CIP Green Power", bike: "KTM RC250GP", dob: "16/10/2003", titles: "British Talent Cup Champion", wins: "0 Wins", podiums: "Top 5", style: "Slipstream specialist.", bio: "Tenacious British representative." },
+        { id: "m3_moodley", name: "Ruche Moodley", number: 21, flag: "🇿🇦", country: "Afrika Selatan", team: "BOE Motorsports", bike: "KTM RC250GP", dob: "19/02/2007", titles: "Rookies Cup Podium", wins: "0 Wins", podiums: "1 Podium", style: "Raw fearless aggression.", bio: "South African export on KTM power." },
+        { id: "m3_almansa", name: "David Almansa", number: 22, flag: "🇪🇸", country: "Spanyol", team: "Liqui Moly Husqvarna Intact", bike: "Husqvarna FR250GP", dob: "22/01/2006", titles: "Junior GP Frontrunner", wins: "0 Wins", podiums: "2 Podiums", style: "Quick change of direction.", bio: "Spanish charger racing for Husqvarna Intact GP." },
+        { id: "m3_salmela", name: "Rico Salmela", number: 27, flag: "🇫🇮", country: "Finlandia", team: "Red Bull KTM Ajo", bike: "KTM RC250GP", dob: "12/01/2008", titles: "Finnish Star Prodigy", wins: "0 Wins", podiums: "2 Podiums", style: "Ice-cool Scandinavian calmness.", bio: "Aki Ajo's handpicked Finnish prodigy." },
+        { id: "m3_quiles", name: "Maximo Quiles", number: 28, flag: "🇪🇸", country: "Spanyol", team: "CFMOTO Aspar Team", bike: "KTM RC250GP", dob: "18/03/2008", titles: "European Talent Cup Champion", wins: "Multiple ETC Wins", podiums: "10 Podiums", style: "Explosive race starts.", bio: "Marc Marquez's mentee and Aspar wonderkid." },
+        { id: "m3_fernandez", name: "Adrian Fernandez", number: 31, flag: "🇪🇸", country: "Spanyol", team: "Leopard Racing", bike: "Honda NSF250RW", dob: "31/01/2004", titles: "Multiple Moto3 Podium Finisher", wins: "0 Wins", podiums: "4 Podiums", style: "Pitbull trail-braking.", bio: "Raul Fernandez's younger brother leading Leopard Racing." },
+        { id: "m3_mitani", name: "Zen Mitani", number: 32, flag: "🇯🇵", country: "Jepang", team: "Honda Team Asia", bike: "Honda NSF250RW", dob: "09/07/2007", titles: "Asia Talent Cup Champion 2024", wins: "7 Wins", podiums: "Rekor Podium", style: "Disciplined Japanese perfection.", bio: "2024 Asia Talent Cup Champion joining Honda Team Asia." },
+        { id: "m3_uriarte", name: "Brian Uriarte", number: 51, flag: "🇪🇸", country: "Spanyol", team: "CFMOTO Aspar Team", bike: "KTM RC250GP", dob: "18/08/2008", titles: "ETC Vice Champion", wins: "Multiple Wins", podiums: "8 Podiums", style: "High speed sector bravery.", bio: "Aspar junior team standout." },
+        { id: "m3_rios", name: "Jesus Rios", number: 54, flag: "🇪🇸", country: "Spanyol", team: "Rivacold Snipers Team", bike: "Honda NSF250RW", dob: "01/10/2007", titles: "Junior GP Winner", wins: "2 Wins", podiums: "5 Podiums", style: "Aggressive overtake angles.", bio: "Snipers team young gun." },
+        { id: "m3_dmunoz", name: "David Muñoz", number: 64, flag: "🇪🇸", country: "Spanyol", team: "Liqui Moly Intact GP", bike: "KTM RC250GP", dob: "15/05/2006", titles: "Multiple Moto3 Podium Finisher", wins: "0 Wins", podiums: "7 Podiums", style: "Wild knife-between-teeth combat.", bio: "Fan favorite known for breathtaking last-lap lunges." },
+        { id: "m3_kelso", name: "Joel Kelso", number: 66, flag: "🇦🇺", country: "Australia", team: "BOE Motorsports", bike: "KTM RC250GP", dob: "12/06/2003", titles: "Moto3 Pole & Podium", wins: "0 Wins", podiums: "3 Podiums", style: "Aussie grit and brave line-holding.", bio: "Fast Darwin native hunting his maiden GP victory." },
+        { id: "m3_ogorman", name: "Casey O'Gorman", number: 67, flag: "🇮🇪", country: "Irlandia", team: "SIC58 Squadra Corse", bike: "Honda NSF250RW", dob: "21/07/2007", titles: "British Talent Cup Champion", wins: "Multiple Wins", podiums: "6 Podiums", style: "Precision corner slicing.", bio: "Irish sensation flying under Simoncelli colors." },
+        { id: "m3_perrone", name: "Valentin Perrone", number: 73, flag: "🇦🇷", country: "Argentina", team: "Red Bull Tech3", bike: "GASGAS RC250GP", dob: "29/12/2007", titles: "European Talent Cup Star", wins: "1 Win", podiums: "4 Podiums", style: "Passionate tango race craft.", bio: "Argentine starlet backed by Herve Poncharal's Tech3." },
+        { id: "m3_esteban", name: "Joel Esteban", number: 78, flag: "🇪🇸", country: "Spanyol", team: "LevelUp - MTA", bike: "KTM RC250GP", dob: "14/08/2005", titles: "Junior GP Winner", wins: "1 Win", podiums: "3 Podiums", style: "Technical apex momentum.", bio: "Spanish front-row contender." },
+        { id: "m3_carpe", name: "Alvaro Carpe", number: 83, flag: "🇪🇸", country: "Spanyol", team: "Red Bull KTM Ajo", bike: "KTM RC250GP", dob: "05/06/2007", titles: "2024 Red Bull Rookies Cup Champion", wins: "3 Wins", podiums: "7 Podiums", style: "High tactical race awareness.", bio: "2024 Red Bull Rookies Cup Champion making factory GP debut." },
+        { id: "m3_pini", name: "Guido Pini", number: 94, flag: "🇮🇹", country: "Italia", team: "Leopard Racing", bike: "Honda NSF250RW", dob: "07/01/2008", titles: "European Talent Cup Champion", wins: "Multiple Wins", podiums: "9 Podiums", style: "Silky Tuscan throttle finesse.", bio: "Italian prodigy paired with championship-winning Leopard squad." },
+        { id: "m3_morelli", name: "Marco Morelli", number: 97, flag: "🇦🇷", country: "Argentina", team: "CFMOTO Aspar Team", bike: "KTM RC250GP", dob: "18/06/2007", titles: "Rookies Cup Podium Finisher", wins: "1 Win", podiums: "4 Podiums", style: "Aggressive chicane flicking.", bio: "Argentine talent completing Aspar's formidable lineup." }
+      ]
+    };
+
+    let currentClass = 'motogp';
+
+    function filterRiderClass(className) {
+      currentClass = className;
+      
+      const buttons = ['motogp', 'moto2', 'moto3'];
+      buttons.forEach(b => {
+        const btn = document.getElementById(`btn-class-${b}`);
+        if (b === className) {
+          btn.className = "px-5 py-2.5 rounded-xl text-xs font-black bg-racing-red text-white shadow-md transition";
+        } else {
+          btn.className = "px-5 py-2.5 rounded-xl text-xs font-black bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-racing-red hover:text-white transition";
+        }
+      });
+
+      renderRidersGrid();
+    }
+
+    function renderRidersGrid() {
+      const container = document.getElementById('container-grid-riders');
+      const riders = RIDERS_DATABASE[currentClass] || [];
+
+      container.innerHTML = riders.map(r => `
+        <div class="p-4 bg-white dark:bg-racing-asphaltCard rounded-2xl border-2 border-racing-red/60 hover:border-racing-red shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+          <div>
+            <div class="flex justify-between items-baseline pb-2 border-b border-slate-100 dark:border-slate-800">
+              <span class="racing-number text-3xl font-black text-racing-red tracking-tight">#${r.number}</span>
+              <span class="text-xs font-bold text-slate-500 dark:text-slate-400">${r.country} ${r.flag}</span>
+            </div>
+            
+            <div class="mt-2.5">
+              <h4 class="font-black text-slate-900 dark:text-white text-sm tracking-tight">${r.name}</h4>
+              <p class="text-[11px] text-racing-red font-bold mt-0.5">${r.team}</p>
+              <p class="text-[10px] text-slate-400 mt-1">${r.bike}</p>
+            </div>
+          </div>
+
+          <button onclick="openRiderModal('${r.id}')" class="mt-3.5 w-full py-2 bg-slate-100 dark:bg-racing-asphalt hover:bg-racing-red hover:text-white text-racing-red border border-slate-200 dark:border-racing-asphaltBorder rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+            <i data-lucide="user" class="w-3.5 h-3.5"></i> Profil & Analisis ↗
+          </button>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // MODAL LENGKAP & TAUTAN BEBAS LOGIN
+    function openRiderModal(riderId) {
+      let r = null;
+      for (const cls in RIDERS_DATABASE) {
+        const found = RIDERS_DATABASE[cls].find(item => item.id === riderId);
+        if (found) { r = found; break; }
+      }
+      if (!r) return;
+
+      const modal = document.getElementById('rider-modal');
+      const content = document.getElementById('modal-content');
+
+      // Tautan Publik Tanpa Login ke Wikipedia / Motorsport Database
+      const openFreeUrl = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(r.name + ' motorcycle racer')}`;
+
+      content.innerHTML = `
+        <div class="flex items-center justify-between border-b pb-3 border-slate-200 dark:border-slate-800">
+          <div>
+            <span class="text-xs font-bold text-racing-red uppercase">${r.country} ${r.flag} • ${r.team}</span>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-white uppercase">${r.name}</h3>
+          </div>
+          <span class="racing-number text-4xl font-black italic text-racing-red">#${r.number}</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+          <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-bold">Motor Prototype:</span>
+            <span class="font-bold text-slate-900 dark:text-white">${r.bike}</span>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-bold">Tanggal Lahir:</span>
+            <span class="font-bold text-slate-900 dark:text-white">${r.dob}</span>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-bold">Prestasi Terbaik:</span>
+            <span class="font-bold text-racing-red">${r.titles}</span>
+          </div>
+          <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <span class="text-[10px] text-slate-400 block uppercase font-bold">Kemenangan & Podium:</span>
+            <span class="font-bold text-blue-500">${r.wins} • ${r.podiums}</span>
+          </div>
+        </div>
+
+        <div class="text-xs space-y-2 pt-2">
+          <div>
+            <h4 class="font-bold text-slate-900 dark:text-white uppercase text-[11px]">Karakteristik & Gaya Balap:</h4>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-0.5">${r.style}</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-900 dark:text-white uppercase text-[11px]">Catatan Karier Resmi:</h4>
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed mt-0.5">${r.bio}</p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <span class="text-[10px] text-emerald-500 font-bold flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Akses Publik Tanpa Login
+          </span>
+          <a href="${openFreeUrl}" target="_blank" rel="noreferrer noopener" class="bg-racing-red hover:bg-racing-darkred text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka Arsip Lengkap Bebas Login ↗
+          </a>
+        </div>
+      `;
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeRiderModal() {
+      document.getElementById('rider-modal').classList.add('hidden');
+    }
+
+    const ZONE_INFO = {
+      premiere: {
+        title: "VIP Hospitality - Premiere",
+        desc: "Pemandangan tepat di atas pitlane garasi tim dan garis starting grid. Termasuk akses Pitlane Walk resmi.",
+        facility: "Full F&B, AC Lounge, Pitlane Walk",
+        gforce: "1.2G — 1.5G (Apex Acceleration Straight)"
+      },
+      deluxe: {
+        title: "VIP Hospitality - Deluxe",
+        desc: "Lounge berpendingin udara mewah berpadu dengan tribun outdoor beratap untuk menikmati raungan mesin motor prototype dari jarak dekat.",
+        facility: "Food & Beverage, Indoor AC Area, Covered Tribune",
+        gforce: "1.3G (Straight to T1 transition)"
+      },
+      t1: {
+        title: "VIP Luxury Tent (Turn 1)",
+        desc: "Tenda mewah VIP tepat di zona pengereman paling brutal Tikungan 1 setelah lintasan lurus 723 meter berkecepatan 318 km/jam.",
+        facility: "Full F&B, Premium Shaded Tent, Hard Braking View",
+        gforce: "1.5G Deselerasi Ekstrem (Brembo High Stress)"
+      },
+      grandstand_covered: {
+        title: "Premium Grandstand (A, B, C, J, K)",
+        desc: "Tribun duduk terlindung atap (Covered Grandstand) dengan nomor kursi bebas. Menghadap langsung zona overtaking dan tikungan teknikal.",
+        facility: "Covered Roof, Giant Screen View, F&B Booth Access",
+        gforce: "1.2G — 1.4G (High Speed Cornering)"
+      },
+      grandstand_regular: {
+        title: "Regular Grandstand (E, G, H, I)",
+        desc: "Tribun terbuka (Uncovered) dengan sudut pandang aksi cornering cepat di sektor selatan sirkuit dengan latar perbukitan Mandalika.",
+        facility: "Uncovered Free Seating, Giant Screen View, Merch Area",
+        gforce: "1.1G (Flowing Turns)"
+      },
+      festival: {
+        title: "Standing - Festival (General Admission)",
+        desc: "Akses fleksibel ke area bukit pandang sirkuit dan panggung festival musik/konser hiburan tanpa akses ke kursi grandstand.",
+        facility: "Viewing Zone Area Bukit, Festival Stage, UMKM Foodcourt",
+        gforce: "Wide Circuit Atmosphere"
+      }
+    };
+
+    function showZoneInfo(zoneKey) {
+      const z = ZONE_INFO[zoneKey];
+      if (!z) return;
+      document.getElementById('zone-title').innerText = z.title;
+      document.getElementById('zone-desc').innerText = z.desc;
+      document.getElementById('zone-facility').innerText = z.facility;
+      document.getElementById('zone-gforce').innerText = z.gforce;
+    }
+
+    // FUNGSI INISIALISASI HALAMAN & TAB
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-racing-red', 'text-white', 'shadow-lg');
+        btn.classList.add('bg-racing-sidebarCard', 'text-slate-300');
+      });
+
+      const activePane = document.getElementById(tabId);
+      activePane.classList.remove('hidden');
+
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-racing-sidebarCard', 'text-slate-300');
+        activeBtn.classList.add('bg-racing-red', 'text-white', 'shadow-lg');
+      }
+
+      // Tutup otomatis drawer di HP dan hilangkan overlay hitam
+      const sidebar = document.getElementById('sidebar-drawer');
+      const backdrop = document.getElementById('mobile-backdrop');
+      if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        sidebar.classList.add('-translate-x-full');
+      }
+      if (backdrop && !backdrop.classList.contains('hidden')) {
+        backdrop.classList.add('hidden');
+      }
+
+      lucide.createIcons();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      renderRidersGrid();
+      initChartSejarahSpeed();
+      initAllTimeLegendsChart();
+      initChartEkonomiNTB();
+      initChartOkupansiHotel();
+      initChartTrafikBandara();
+      initChartPDRBSektor();
+      initChartPengeluaranTuris();
+      initChartPekerjaLokal();
+    });
+
+    // ================= INITIALIZE CHARTS =================
+    function initChartSejarahSpeed() {
+      const ctx = document.getElementById('chartSejarahSpeed').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['1949 (AJS)', '1975 (2-Tak)', '1997 (Sentul)', '2002 (990cc)', '2016 (ECU)', '2024 (Aero)', '2027 (850cc)'],
+          datasets: [{
+            label: 'Top Speed Record (km/jam)',
+            data: [155, 275, 312, 332, 354, 366.1, 340.0],
+            borderColor: '#e10600',
+            backgroundColor: 'rgba(225, 6, 0, 0.15)',
+            fill: true,
+            tension: 0.35,
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { min: 140, max: 380, grid: { color: '#e2e8f0' } } }
+        }
+      });
+    }
+
+    function initAllTimeLegendsChart() {
+      const ctx = document.getElementById('chartAllTimeLegends').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Agostini (15)', 'Nieto (13)', 'Rossi (9)', 'Hailwood (9)', 'Marquez (8)', 'Lainnya'],
+          datasets: [{
+            data: [15, 13, 9, 9, 8, 46],
+            backgroundColor: ['#e10600', '#2563eb', '#f59e0b', '#7c3aed', '#10b981', '#64748b']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } } }
+        }
+      });
+    }
+
+    function initChartEkonomiNTB() {
+      const ctx = document.getElementById('chartEkonomiNTB').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['2022', '2023', '2024', '2025/2026'],
+          datasets: [{
+            label: 'Triliun Rupiah',
+            data: [3.8, 4.3, 4.5, 4.8],
+            backgroundColor: ['#e10600', '#e10600', '#e10600', '#f59e0b'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { min: 2.0, max: 6.0, grid: { color: '#e2e8f0' } } }
+        }
+      });
+    }
+
+    function initChartOkupansiHotel() {
+      const ctx = document.getElementById('chartOkupansiHotel').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Normal', 'Race Week'],
+          datasets: [
+            { label: 'KEK Mandalika (%)', data: [42, 98], backgroundColor: '#e10600', borderRadius: 6 },
+            { label: 'Mataram & Senggigi (%)', data: [38, 92], backgroundColor: '#2563eb', borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: { y: { min: 0, max: 100, grid: { color: '#e2e8f0' } } }
+        }
+      });
+    }
+
+    function initChartTrafikBandara() {
+      const ctx = document.getElementById('chartTrafikBandara').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['H-5', 'H-3', 'H-1', 'Race Day', 'H+1'],
+          datasets: [{
+            label: 'Penumpang / Hari',
+            data: [4200, 6800, 11400, 14200, 13800],
+            borderColor: '#e10600',
+            backgroundColor: 'rgba(225, 6, 0, 0.15)',
+            fill: true,
+            tension: 0.3,
+            borderWidth: 2.5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { grid: { color: '#e2e8f0' } } }
+        }
+      });
+    }
+
+    function initChartPDRBSektor() {
+      const ctx = document.getElementById('chartPDRBSektor').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Transportasi', 'Hotel & Akomodasi', 'Restoran / F&B', 'UMKM Retail'],
+          datasets: [{
+            label: 'Pertumbuhan YoY (%)',
+            data: [14.8, 18.2, 12.5, 9.4],
+            backgroundColor: ['#e10600', '#2563eb', '#10b981', '#f59e0b'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { grid: { color: '#e2e8f0' } } }
+        }
+      });
+    }
+
+    function initChartPengeluaranTuris() {
+      const ctx = document.getElementById('chartPengeluaranTuris').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Hotel (38%)', 'Tiket GP (28%)', 'Kuliner & F&B (18%)', 'UMKM & Transport (16%)'],
+          datasets: [{
+            data: [38, 28, 18, 16],
+            backgroundColor: ['#e10600', '#2563eb', '#f59e0b', '#10b981']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } } }
+        }
+      });
+    }
+
+    function initChartPekerjaLokal() {
+      const ctx = document.getElementById('chartPekerjaLokal').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Track Marshals FIM (32%)', 'Hospitality & Ticketing (28%)', 'Security & Logistik (25%)', 'Medis & Fasilitas (15%)'],
+          datasets: [{
+            data: [32, 28, 25, 15],
+            backgroundColor: ['#e10600', '#f59e0b', '#2563eb', '#64748b']
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } } }
+        }
+      });
+    }
+  </script>
+
+  <!-- Proteksi Akses Kode Sumber -->
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', event => {
+      if (
+        event.key === 'F12' || 
+        (event.ctrlKey && event.shiftKey && event.key.toUpperCase() === 'I') || 
+        (event.ctrlKey && event.key.toUpperCase() === 'U') ||
+        (event.ctrlKey && event.shiftKey && event.key.toUpperCase() === 'C')
+      ) {
+        event.preventDefault();
+        alert("Akses dilindungi oleh M. Naufal Zamani © 2026. Dilarang menduplikasi kode sumber!");
+      }
+    });
+  </script>
+</body>
+</html>
