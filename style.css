@@ -1,0 +1,52 @@
+.headline-font {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.racing-number {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+/* Tombol Melayang WhatsApp */
+.floating-wa-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 40;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+}
+
+.floating-wa-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Animasi Motor Balap Melaju */
+@keyframes bike-ride {
+  0% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  100% { transform: translateX(-8px); }
+}
+
+.bike-anim {
+  display: inline-block;
+  animation: bike-ride 3s infinite ease-in-out;
+}
+
+/* Custom Scrollbar Ramping Merah */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e10600;
+  border-radius: 3px;
+}
+
+/* Perbaikan Khusus Layar HP / Mobile Drawer */
+@media (max-width: 1024px) {
+  #sidebar-drawer {
+    width: 85vw;
+    max-width: 320px;
+  }
+}
